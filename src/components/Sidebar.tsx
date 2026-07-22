@@ -2,17 +2,21 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Home, BookOpen, Grid, Trophy, User, Settings, Heart, Flame, Coins, Swords, Mountain, Music } from 'lucide-react';
+import { Home, BookOpen, Grid, Trophy, User, Settings, Heart, Flame, Coins, Swords, Mountain, Music, ShoppingBag } from 'lucide-react';
 import HiraganaChartModal from '@/components/HiraganaChartModal';
+import { useGame } from '@/context/GameContext';
 
 export default function Sidebar() {
   const [isChartOpen, setIsChartOpen] = useState(false);
+
+  const { ryo, activeAvatar } = useGame();
 
   const navItems = [
     { name: "Sua Jornada", href: "/", icon: <Home className="w-6 h-6" /> },
     { name: "Treinamento", href: "/lesson?group=vowels", icon: <Swords className="w-6 h-6" /> },
     { name: "Trilha do Mestre", href: "/trilha", icon: <Mountain className="w-6 h-6" /> },
     { name: "J-Pop Karaoke", href: "/jpop", icon: <Music className="w-6 h-6" /> },
+    { name: "Loja do Ferreiro", href: "/shop", icon: <ShoppingBag className="w-6 h-6" /> },
   ];
 
   return (
@@ -24,8 +28,9 @@ export default function Sidebar() {
 
         {/* RPG HUD PANEL */}
         <div className="bg-background border-2 border-border rounded-2xl p-4 mb-6 shadow-inner mx-2">
-          <div className="text-xs font-bold text-gray-400 uppercase mb-3 flex items-center justify-between">
-            <span>Status Ninja</span>
+          <div className="text-xs font-bold text-gray-400 uppercase mb-3 flex items-center gap-2">
+            <span className="text-xl">{activeAvatar.emoji}</span>
+            <span className="truncate flex-1">{activeAvatar.name}</span>
             <span className="text-primary bg-primary/10 px-2 py-0.5 rounded text-[10px]">Nv. 1</span>
           </div>
           
@@ -51,7 +56,7 @@ export default function Sidebar() {
               <div className="flex items-center gap-2 text-amber-500 font-bold text-sm">
                 <Coins className="w-5 h-5 fill-amber-500" /> Ryō
               </div>
-              <span className="font-black text-foreground">150</span>
+              <span className="font-black text-foreground">{ryo}</span>
             </div>
           </div>
           

@@ -2,8 +2,11 @@
 
 import { Shield, Swords, Flame, Coins, Trophy, Star, BookOpen, Clock, Target, Medal } from 'lucide-react';
 import Heatmap from '@/components/Heatmap';
+import { useGame } from '@/context/GameContext';
 
 export default function ProfilePage() {
+  const { ryo, activeAvatar } = useGame();
+  
   return (
     <div className="flex flex-col items-center pb-24 w-full max-w-4xl mx-auto">
       {/* Header / Banner */}
@@ -14,7 +17,7 @@ export default function ProfilePage() {
         <div className="relative z-10 flex flex-col sm:flex-row items-center sm:items-end gap-4 sm:gap-6 translate-y-16 sm:translate-y-12">
           {/* Avatar */}
           <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full bg-surface border-4 border-surface shadow-2xl flex items-center justify-center text-6xl relative">
-            🦊
+            {activeAvatar.emoji}
             <div className="absolute -bottom-2 sm:-bottom-3 bg-amber-500 text-white text-[10px] sm:text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full border-2 border-surface shadow-md">
               Nível 12
             </div>
@@ -23,7 +26,7 @@ export default function ProfilePage() {
           <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
             <h1 className="text-3xl sm:text-4xl font-black text-foreground sm:text-white drop-shadow-sm mt-2 sm:mt-0">Naruto Uzumaki</h1>
             <p className="text-primary sm:text-blue-100 font-bold uppercase tracking-widest text-sm flex items-center gap-1.5 mt-1">
-              <Shield className="w-4 h-4" /> Jonin da Folha
+              <Shield className="w-4 h-4" /> {activeAvatar.name}
             </p>
           </div>
         </div>
@@ -49,7 +52,7 @@ export default function ProfilePage() {
           </div>
           <div className="bg-surface border-2 border-border p-4 rounded-3xl flex flex-col items-center justify-center shadow-sm">
             <Coins className="w-8 h-8 text-amber-500 mb-2" />
-            <span className="text-2xl font-black text-foreground">3,500</span>
+            <span className="text-2xl font-black text-foreground">{ryo}</span>
             <span className="text-[10px] text-gray-400 uppercase font-bold tracking-wider">Ouro (Ryō)</span>
           </div>
         </div>

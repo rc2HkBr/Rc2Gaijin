@@ -6,9 +6,11 @@ import Link from 'next/link';
 import { HIRAGANA_GROUPS } from '@/data/hiraganaData';
 import HiraganaChartModal from '@/components/HiraganaChartModal';
 import Heatmap from '@/components/Heatmap';
+import { useGame } from '@/context/GameContext';
 
 export default function Home() {
   const [isChartOpen, setIsChartOpen] = useState(false);
+  const { ryo } = useGame();
 
   return (
     <div className="flex flex-col items-center pb-24 pt-6 w-full max-w-2xl mx-auto px-4">
@@ -21,7 +23,7 @@ export default function Home() {
           <Flame className="w-5 h-5 fill-orange-500" /> 1
         </div>
         <div className="flex items-center gap-1.5 text-amber-500 font-bold text-sm">
-          <Coins className="w-5 h-5 fill-amber-500" /> 150
+          <Coins className="w-5 h-5 fill-amber-500" /> {ryo}
         </div>
       </div>
 

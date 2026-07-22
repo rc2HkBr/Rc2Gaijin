@@ -353,5 +353,87 @@ export const JPOP_SONGS: JPopSong[] = [
         isChorus: true
       }
     ]
+  },
+  {
+    id: "bluebird",
+    title: "ブルーバード (Blue Bird)",
+    titleRomaji: "Blue Bird",
+    artist: "Ikimonogakari (Naruto Shippuden OP3)",
+    youtubeId: "KpsJWZuG3xg",
+    difficulty: "Avançado",
+    coverEmoji: "🕊️",
+    lyrics: [
+      {
+        id: 1,
+        time: 5.0, // 0:05
+        kanji: "飛翔いたら 戻らないと言って",
+        hiragana: "はばたいたら もどらないといって",
+        romaji: "Habataitara modoranai to itte",
+        translation: "Dizendo que, se batesse as asas, não voltaria",
+        notes: "【飛翔いたら (はばたいたら)】= Se batesse as asas. 【戻らない (もどらない)】= Não voltar. 【と言って (といって)】= Dizendo que.",
+        isChorus: true
+      },
+      {
+        id: 2,
+        time: 10.0, // 0:10
+        kanji: "目指したのは 蒼い 蒼い あの空",
+        hiragana: "めざしたのは あおい あおい あのそら",
+        romaji: "Mezashita no wa aoi aoi ano sora",
+        translation: "O que você almejou foi aquele céu azul, azul",
+        notes: "【目指した (めざした)】= Almejou/apontou para. 【蒼い (あおい)】= Azul. 【空 (そら)】= Céu.",
+        isChorus: true
+      },
+      {
+        id: 3,
+        time: 15.0, // 0:15
+        kanji: "悲しみは まだ覚えられず",
+        hiragana: "かなしみは まだおぼえられず",
+        romaji: "Kanashimi wa mada oboerarezu",
+        translation: "Ainda sem conseguir lembrar da tristeza",
+        notes: "【悲しみ (かなしみ)】= Tristeza. 【覚えられず (おぼえられず)】= Sem conseguir lembrar.",
+        isChorus: false
+      },
+      {
+        id: 4,
+        time: 20.0, // 0:20
+        kanji: "切なさは 今つかみはじめた",
+        hiragana: "せつなさは いまつかみはじめた",
+        romaji: "Setsunasa wa ima tsukamihajimeta",
+        translation: "Agora comecei a compreender a dor no peito",
+        notes: "【切なさ (せつなさ)】= Dor emocional/angústia. 【つかみはじめた】= Começou a agarrar/compreender.",
+        isChorus: false
+      }
+    ]
+  },
+  {
+    id: "evangelion",
+    title: "残酷な天使のテーゼ",
+    titleRomaji: "Zankoku na Tenshi no These",
+    artist: "Yoko Takahashi (Evangelion OP)",
+    youtubeId: "o6wtDPVkKqI",
+    difficulty: "Avançado",
+    coverEmoji: "🤖",
+    lyrics: [
+      {
+        id: 1,
+        time: 0.5, // 0:00
+        kanji: "残酷な天使のように",
+        hiragana: "ざんこくなてんしのように",
+        romaji: "Zankoku na tenshi no you ni",
+        translation: "Como um anjo cruel",
+        notes: "【残酷 (ざんこく)】= Cruel. 【天使 (てんし)】= Anjo. 【のように】= Como / Da maneira que.",
+        isChorus: true
+      },
+      {
+        id: 2,
+        time: 4.5, // 0:04
+        kanji: "少年よ 神話になれ",
+        hiragana: "しょうねんよ しんわになれ",
+        romaji: "Shounen yo shinwa ni nare",
+        translation: "Jovem, torne-se uma lenda!",
+        notes: "【少年 (しょうねん)】= Jovem/Garoto. 【神話 (しんわ)】= Mito/Lenda. 【になれ】= Torne-se (imperativo de なる).",
+        isChorus: true
+      }
+    ]
   }
 ];
