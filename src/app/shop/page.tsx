@@ -101,9 +101,9 @@ export default function DojoShopPage() {
                   }`}
                 >
                   {/* Icon Area */}
-                  <div className="h-32 bg-background rounded-xl mb-4 flex items-center justify-center border-2 border-border relative overflow-hidden">
+                  <div className="h-32 bg-background rounded-xl mb-4 flex items-center justify-center border-2 border-border relative overflow-hidden p-2">
                     {item.imageUrl ? (
-                      <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover" />
+                      <img src={item.imageUrl} alt={item.name} className="w-full h-full object-contain" />
                     ) : (
                       <span className="text-7xl drop-shadow-sm">{item.emoji}</span>
                     )}

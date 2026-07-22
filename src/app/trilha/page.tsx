@@ -114,11 +114,11 @@ export default function TrilhaMissionsPage() {
                 >
                   
                   {/* Character Avatar */}
-                  <div className={`w-28 h-28 shrink-0 rounded-2xl flex items-center justify-center border-2 border-border shadow-sm overflow-hidden ${
+                  <div className={`w-28 h-28 shrink-0 rounded-2xl flex items-center justify-center border-2 border-border shadow-sm overflow-hidden p-2 ${
                     mission.isBoss ? 'bg-purple-100 border-purple-300' : 'bg-background'
                   }`}>
                     {mission.image ? (
-                      <img src={mission.image} alt={mission.title} className="w-full h-full object-cover" />
+                      <img src={mission.image} alt={mission.title} className="w-full h-full object-contain" />
                     ) : (
                       <span className="text-6xl drop-shadow-sm">{mission.emoji}</span>
                     )}

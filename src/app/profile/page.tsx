@@ -18,7 +18,7 @@ export default function ProfilePage() {
           {/* Avatar */}
           <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full bg-surface border-4 border-surface shadow-[0_8px_0_#E5E5E5] flex items-center justify-center relative overflow-hidden">
             {activeAvatar.imageUrl ? (
-               <img src={activeAvatar.imageUrl} alt="" className="w-full h-full object-cover" />
+               <img src={activeAvatar.imageUrl} alt="" className="w-full h-full object-contain p-2" />
             ) : (
                <span className="text-6xl">{activeAvatar.emoji}</span>
             )}
