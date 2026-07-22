@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Home, BookOpen, Grid, Trophy, User, Settings, Heart, Flame, Coins, Swords } from 'lucide-react';
+import { Home, BookOpen, Grid, Trophy, User, Settings, Heart, Flame, Coins, Swords, Mountain, Music } from 'lucide-react';
 import HiraganaChartModal from '@/components/HiraganaChartModal';
 
 export default function Sidebar() {
@@ -11,6 +11,8 @@ export default function Sidebar() {
   const navItems = [
     { name: "Sua Jornada", href: "/", icon: <Home className="w-6 h-6" /> },
     { name: "Treinamento", href: "/lesson?group=vowels", icon: <Swords className="w-6 h-6" /> },
+    { name: "Trilha do Mestre", href: "/trilha", icon: <Mountain className="w-6 h-6" /> },
+    { name: "J-Pop Karaoke", href: "/jpop", icon: <Music className="w-6 h-6" /> },
   ];
 
   return (

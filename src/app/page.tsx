@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Star, Grid, Sparkles, BookOpen, CheckCircle2, ShieldAlert, Skull, Map, Heart, Flame, Coins, MapPin } from 'lucide-react';
+import { Star, Grid, Sparkles, BookOpen, CheckCircle2, ShieldAlert, Skull, Map, Heart, Flame, Coins, MapPin, Mountain } from 'lucide-react';
 import Link from 'next/link';
 import { HIRAGANA_GROUPS } from '@/data/hiraganaData';
 import HiraganaChartModal from '@/components/HiraganaChartModal';
@@ -37,6 +37,23 @@ export default function Home() {
       </div>
 
       <Heatmap />
+
+      {/* Trilha do Mestre Banner */}
+      <Link href="/trilha" className="w-full bg-gradient-to-r from-primary to-blue-600 rounded-3xl p-6 shadow-xl mb-12 relative overflow-hidden group hover:scale-[1.02] transition-transform block">
+        <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <div className="relative z-10 flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+          <div className="w-16 h-16 rounded-2xl bg-white/20 border-2 border-white/30 flex items-center justify-center shadow-inner">
+            <Mountain className="w-8 h-8 text-white drop-shadow-md" />
+          </div>
+          <div className="flex-1">
+            <h3 className="text-xl font-black text-white drop-shadow-md">A Trilha do Mestre</h3>
+            <p className="text-white/80 text-sm font-medium">Complete os 1000 exercícios e desbloqueie o J-Pop Karaoke Learning!</p>
+          </div>
+          <div className="bg-white text-primary font-black px-6 py-3 rounded-xl shadow-lg border-b-4 border-gray-200 group-active:border-b-0 group-active:translate-y-1 transition-all">
+            Ver Progresso
+          </div>
+        </div>
+      </Link>
 
       {/* ZONES MAP */}
       <div className="relative flex flex-col items-center w-full">
