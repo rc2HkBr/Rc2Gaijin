@@ -1,136 +1,170 @@
 'use client';
 
-import { Mountain, Target, CheckCircle, Lock, PlayCircle, Coins, Award } from 'lucide-react';
+import { Mountain, Lock, Play, ChevronLeft, Star, ShieldAlert } from 'lucide-react';
 import Link from 'next/link';
+import { useState } from 'react';
 
-export default function TrilhaMasterPage() {
-  // Simulação de progresso do aluno (em um app real isso viria do banco de dados/estado global)
-  const currentExercises = 142;
-  const totalExercises = 1000;
-  const progressPercentage = Math.min((currentExercises / totalExercises) * 100, 100);
+// Dados das Missões
+const MISSIONS = [
+  {
+    id: 1,
+    title: "O Punho da Mestra",
+    subtitle: "Aprenda as 5 vogais (A, I, U, E, O)",
+    description: "A Mestra de Karate te desafia a decorar o som primordial das vogais. Não a decepcione!",
+    reward: "50 Ryō",
+    image: "/images/shop/lutadora_karate.png",
+    emoji: "🥋",
+    isUnlocked: true,
+    isCompleted: true,
+    color: "bg-success",
+    shadow: "shadow-[0_4px_0_#4BB200]",
+  },
+  {
+    id: 2,
+    title: "A Lâmina Inflexível",
+    subtitle: "Família K e S",
+    description: "O Samurai Honrado quer testar seu tempo de resposta. A espada dele não perdoa erros.",
+    reward: "100 Ryō",
+    image: "/images/shop/samurai_honrado.png",
+    emoji: "🗡️",
+    isUnlocked: true,
+    isCompleted: false,
+    color: "bg-secondary",
+    shadow: "shadow-[0_4px_0_#1899D6]",
+  },
+  {
+    id: 3,
+    title: "Infiltração Silenciosa",
+    subtitle: "Família T e N",
+    description: "Para andar nas sombras, você não pode hesitar. Passe pelo Ninja Clássico despercebido.",
+    reward: "Shuriken de Aço",
+    image: "/images/shop/ninja_classico.png",
+    emoji: "🥷",
+    isUnlocked: false,
+    isCompleted: false,
+    color: "bg-primary",
+    shadow: "shadow-[0_4px_0_#CC3C3C]",
+  },
+  {
+    id: 4,
+    title: "Desafio do Shogun",
+    subtitle: "O Despertar dos Kanjis",
+    description: "O impiedoso Shogun dos Kanjis trancou as portas da cidade musical. Mostre seu valor e derrote-o lendo palavras completas!",
+    reward: "Desbloqueia J-Pop Karaoke",
+    image: null,
+    emoji: "👺",
+    isUnlocked: false,
+    isCompleted: false,
+    color: "bg-purple-600",
+    shadow: "shadow-[0_4px_0_#7E22CE]",
+    isBoss: true,
+  }
+];
 
-  const milestones = [
-    { target: 100, title: "Despertar Shinobi", reward: "100 Ryō", icon: <Coins className="w-5 h-5 text-amber-500" /> },
-    { target: 250, title: "Foco Absoluto", reward: "Medalha de Bronze", icon: <Award className="w-5 h-5 text-orange-500" /> },
-    { target: 500, title: "Mente Inabalável", reward: "500 Ryō", icon: <Coins className="w-5 h-5 text-amber-500" /> },
-    { target: 750, title: "Visão de Águia", reward: "Medalha de Prata", icon: <Award className="w-5 h-5 text-gray-400" /> },
-    { target: 1000, title: "Domínio do Mestre", reward: "Desbloqueia J-Pop Learning", icon: <PlayCircle className="w-5 h-5 text-primary" /> },
-  ];
+export default function TrilhaMissionsPage() {
+  const [activeMission, setActiveMission] = useState<number>(2); // Missão atual
 
   return (
-    <div className="flex flex-col items-center pb-24 pt-6 w-full max-w-4xl mx-auto px-4">
-      {/* Header */}
-      <div className="w-full mb-10 text-center space-y-3">
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-500 font-bold text-xs uppercase tracking-wider">
-          <Mountain className="w-4 h-4" /> Desafio dos 90 Dias
-        </span>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground">Trilha do Mestre</h1>
-        <p className="text-gray-500 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
-          O caminho para a fluência exige disciplina. Complete 1000 exercícios em até 3 meses para atingir o Domínio do Mestre e desbloquear recursos exclusivos!
-        </p>
-      </div>
-
-      {/* Progress Card */}
-      <div className="w-full bg-surface border-2 border-border p-6 sm:p-8 rounded-3xl shadow-xl mb-12 relative overflow-hidden">
-        {/* Background glow */}
-        <div className="absolute -top-20 -right-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl pointer-events-none"></div>
-
-        <div className="relative z-10">
-          <div className="flex justify-between items-end mb-4">
-            <div>
-              <h2 className="text-xl font-black text-foreground flex items-center gap-2">
-                <Target className="w-6 h-6 text-primary" />
-                Seu Progresso Atual
-              </h2>
-              <p className="text-sm font-bold text-gray-400 uppercase tracking-widest mt-1">Missão em Andamento</p>
-            </div>
-            <div className="text-right">
-              <span className="text-4xl font-black text-primary">{currentExercises}</span>
-              <span className="text-xl font-bold text-gray-400"> / 1000</span>
-            </div>
-          </div>
-
-          {/* Progress Bar */}
-          <div className="w-full h-6 bg-gray-200 rounded-full overflow-hidden shadow-inner mt-4 relative">
-            <div 
-              className="h-full bg-gradient-to-r from-primary to-blue-500 transition-all duration-1000 ease-out flex items-center justify-end px-2"
-              style={{ width: `${progressPercentage}%` }}
-            >
-              <div className="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></div>
-            </div>
-          </div>
-          <div className="flex justify-between mt-2 text-xs font-bold text-gray-400">
-            <span>0%</span>
-            <span>{Math.round(progressPercentage)}% Concluído</span>
-            <span>100%</span>
-          </div>
+    <div className="min-h-screen w-full bg-background text-foreground flex flex-col items-center select-none pb-24">
+      
+      {/* HEADER NAVBAR (Duolingo Style) */}
+      <div className="w-full h-16 bg-white border-b-2 border-border flex items-center px-4 sm:px-8 sticky top-0 z-40">
+        <Link href="/" className="flex items-center gap-2 hover:opacity-70 transition-opacity mr-4">
+           <ChevronLeft className="w-6 h-6 text-gray-light" />
+        </Link>
+        <div className="flex items-center">
+          <h1 className="text-xl font-black tracking-widest text-primary uppercase mr-4">
+            GAIJIN RC2
+          </h1>
+          <div className="w-px h-6 bg-border mx-2"></div>
+          <span className="text-[11px] font-bold uppercase tracking-[1.5px] text-nav-text">
+            TRILHA DO MESTRE
+          </span>
         </div>
       </div>
 
-      {/* Milestones / Checkpoints */}
-      <div className="w-full relative">
-        {/* Vertical Line */}
-        <div className="absolute left-8 sm:left-1/2 top-0 bottom-0 w-1 bg-border -translate-x-1/2 z-0"></div>
+      {/* MISSION LIST CONTAINER */}
+      <div className="w-full max-w-2xl px-4 sm:px-8 mt-8 flex flex-col gap-10">
+        
+        {/* Banner Intro */}
+        <div className="bg-white rounded-3xl p-6 border-2 border-border shadow-[0_4px_0_#E5E5E5] flex flex-col items-center text-center">
+          <Mountain className="w-12 h-12 text-primary mb-3" />
+          <h2 className="text-2xl font-black text-gray-text mb-2 uppercase">A Jornada do Herói</h2>
+          <p className="text-gray-light font-medium">
+            Siga o caminho shinobi derrotando os grandes mestres. Cada vitória o aproxima do lendário Dojo do J-Pop Karaoke!
+          </p>
+        </div>
 
-        <div className="space-y-6">
-          {milestones.map((milestone, index) => {
-            const isCompleted = currentExercises >= milestone.target;
-            const isNext = !isCompleted && currentExercises < milestone.target && (index === 0 || currentExercises >= milestones[index - 1].target);
+        {/* Missions Path */}
+        <div className="flex flex-col relative w-full items-center">
+          
+          {/* Vertical Path Line */}
+          <div className="absolute top-10 bottom-10 w-3 bg-border rounded-full z-0"></div>
+
+          {MISSIONS.map((mission, index) => {
+            const isActive = activeMission === mission.id;
             
             return (
-              <div key={milestone.target} className={`relative z-10 flex items-center ${index % 2 === 0 ? 'sm:flex-row-reverse' : 'sm:flex-row'} gap-6 w-full group`}>
+              <div key={mission.id} className="relative z-10 w-full flex flex-col items-center mb-16">
                 
-                {/* Desktop Empty Space for alternating layout */}
-                <div className="hidden sm:block sm:flex-1"></div>
-
-                {/* Milestone Node */}
-                <div className="absolute left-8 sm:left-1/2 -translate-x-1/2 flex items-center justify-center">
-                  <div className={`w-12 h-12 rounded-full border-4 flex items-center justify-center transition-all ${
-                    isCompleted 
-                      ? 'bg-emerald-500 border-emerald-200 text-white shadow-lg shadow-emerald-500/30' 
-                      : isNext
-                        ? 'bg-primary border-blue-200 text-white animate-pulse shadow-lg shadow-primary/30'
-                        : 'bg-surface border-border text-gray-300'
+                {/* Mission Card */}
+                <div className={`w-full bg-white rounded-3xl p-5 border-2 transition-all flex flex-col sm:flex-row gap-6 shadow-[0_4px_0_#E5E5E5] ${
+                    isActive ? 'border-secondary scale-[1.02]' : 'border-border'
+                  } ${!mission.isUnlocked ? 'opacity-60 grayscale' : ''}`}
+                >
+                  
+                  {/* Character Avatar */}
+                  <div className={`w-28 h-28 shrink-0 rounded-2xl flex items-center justify-center border-2 border-border shadow-sm overflow-hidden ${
+                    mission.isBoss ? 'bg-purple-100 border-purple-300' : 'bg-background'
                   }`}>
-                    {isCompleted ? <CheckCircle className="w-6 h-6" /> : isNext ? <Target className="w-6 h-6" /> : <Lock className="w-5 h-5" />}
+                    {mission.image ? (
+                      <img src={mission.image} alt={mission.title} className="w-full h-full object-cover" />
+                    ) : (
+                      <span className="text-6xl drop-shadow-sm">{mission.emoji}</span>
+                    )}
                   </div>
-                </div>
 
-                {/* Content Card */}
-                <div className={`flex-1 ml-16 sm:ml-0 ${index % 2 === 0 ? 'sm:text-right sm:pr-12' : 'sm:text-left sm:pl-12'}`}>
-                  <div className={`p-4 sm:p-5 rounded-2xl border-2 transition-all ${
-                    isCompleted 
-                      ? 'bg-emerald-50/50 border-emerald-200' 
-                      : isNext
-                        ? 'bg-surface border-primary shadow-md'
-                        : 'bg-gray-50 border-border opacity-70 grayscale'
-                  }`}>
-                    <div className={`text-xs font-black uppercase tracking-widest mb-1 ${isCompleted ? 'text-emerald-500' : isNext ? 'text-primary' : 'text-gray-400'}`}>
-                      Alvo: {milestone.target} Ex.
+                  {/* Mission Details */}
+                  <div className="flex-1 flex flex-col">
+                    <div className="flex items-start justify-between mb-2">
+                      <div>
+                        <h3 className={`text-[10px] font-black uppercase tracking-widest mb-1 ${mission.isBoss ? 'text-purple-600' : 'text-nav-text'}`}>
+                          {mission.isBoss ? '💥 BATALHA DE CHEFE' : `CAPÍTULO ${index + 1}`}
+                        </h3>
+                        <h2 className={`text-xl font-bold leading-tight ${mission.isBoss ? 'text-gray-text' : 'text-gray-text'}`}>
+                          {mission.title}
+                        </h2>
+                      </div>
+                      
+                      {/* Reward Badge */}
+                      <div className="hidden sm:flex items-center gap-1 bg-gold/10 text-gold text-xs font-bold px-2 py-1 rounded-lg border border-gold/30">
+                        <Star className="w-3 h-3 fill-gold" />
+                        {mission.reward}
+                      </div>
                     </div>
-                    <h3 className="text-lg font-bold text-foreground mb-2">{milestone.title}</h3>
                     
-                    <div className={`flex items-center gap-2 text-sm font-semibold ${index % 2 === 0 ? 'sm:justify-end' : 'sm:justify-start'} ${isCompleted ? 'text-emerald-600' : 'text-gray-500'}`}>
-                      {milestone.icon}
-                      Recompensa: {milestone.reward}
-                    </div>
+                    <p className="text-sm font-bold text-gray-400 mb-2">{mission.subtitle}</p>
+                    <p className="text-sm text-gray-light font-medium leading-relaxed mb-4">
+                      {mission.description}
+                    </p>
 
-                    {/* J-Pop Unlock Special CTA */}
-                    {milestone.target === 1000 && isCompleted && (
-                      <div className={`mt-4 ${index % 2 === 0 ? 'flex sm:justify-end' : 'flex sm:justify-start'}`}>
-                        <Link href="/jpop" className="inline-flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-xl font-bold text-sm transition-transform active:scale-95 shadow-md">
-                          <PlayCircle className="w-4 h-4" /> Acessar J-Pop Learning
-                        </Link>
-                      </div>
-                    )}
-                    {milestone.target === 1000 && !isCompleted && (
-                      <div className="mt-4">
-                        {/* Como simulamos o estado "não completo" mas queremos que o usuário teste a funcionalidade, vamos deixar um link de "preview" discreto */}
-                        <Link href="/jpop" className="inline-flex items-center gap-2 text-primary font-bold text-xs hover:underline opacity-50">
-                          [Preview Dev] Forçar Desbloqueio
-                        </Link>
-                      </div>
-                    )}
+                    {/* Action Button */}
+                    <div className="mt-auto">
+                      {mission.isCompleted ? (
+                        <button disabled className="w-full sm:w-auto px-6 py-3 bg-white border-2 border-border text-nav-text font-black uppercase rounded-xl shadow-[0_4px_0_#E5E5E5]">
+                          Concluído
+                        </button>
+                      ) : !mission.isUnlocked ? (
+                        <button disabled className="w-full sm:w-auto px-6 py-3 bg-gray-100 border-2 border-border text-gray-400 font-black uppercase rounded-xl flex items-center justify-center gap-2">
+                          <Lock className="w-5 h-5" /> Bloqueado
+                        </button>
+                      ) : (
+                        <button className={`w-full sm:w-auto px-8 py-3 text-white font-black uppercase rounded-xl flex items-center justify-center gap-2 transition-all hover:translate-y-1 active:shadow-none active:translate-y-1 ${mission.color} ${mission.shadow}`}>
+                          {mission.isBoss ? <ShieldAlert className="w-5 h-5" /> : <Play className="w-5 h-5 fill-white" />}
+                          {mission.isBoss ? 'Enfrentar Shogun' : 'Iniciar Treino'}
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
 
@@ -138,6 +172,7 @@ export default function TrilhaMasterPage() {
             );
           })}
         </div>
+
       </div>
     </div>
   );
