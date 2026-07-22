@@ -1,134 +1,200 @@
 'use client';
 
-import { ShoppingBag, Coins, Lock, CheckCircle, Palette } from 'lucide-react';
+import { Star, MousePointer2 } from 'lucide-react';
 import { useGame, AVATARS } from '@/context/GameContext';
 import { useState } from 'react';
+import Link from 'next/link';
 
-export default function ShopPage() {
+export default function ArcadeShopPage() {
   const { ryo, unlockedAvatars, unlockAvatar, activeAvatar, setActiveAvatarId, spendRyo } = useGame();
-  const [activeTab, setActiveTab] = useState<'avatars' | 'themes'>('avatars');
   const [errorMsg, setErrorMsg] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
 
-  const handleBuyOrEquipAvatar = (id: string, price: number) => {
+  const handleBuyOrEquip = (id: string, price: number) => {
     setErrorMsg('');
+    setSuccessMsg('');
+    
     if (unlockedAvatars.includes(id)) {
-      // Já tem, então equipa
       setActiveAvatarId(id);
+      setSuccessMsg('ITEM EQUIPADO!');
     } else {
-      // Tentar comprar
       if (spendRyo(price)) {
         unlockAvatar(id);
         setActiveAvatarId(id);
+        setSuccessMsg('ITEM ADQUIRIDO E EQUIPADO!');
       } else {
-        setErrorMsg('Ryō insuficiente para comprar este item!');
-        setTimeout(() => setErrorMsg(''), 3000);
+        setErrorMsg('RC COINS INSUFICIENTES!');
       }
     }
+    setTimeout(() => { setErrorMsg(''); setSuccessMsg(''); }, 3000);
   };
 
   return (
-    <div className="flex flex-col items-center pb-24 pt-6 w-full max-w-4xl mx-auto px-4">
-      {/* Header */}
-      <div className="w-full mb-8 text-center space-y-3">
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 text-amber-600 font-bold text-xs uppercase tracking-wider">
-          <ShoppingBag className="w-4 h-4" /> Loja do Ferreiro
+    <div className="min-h-screen w-full bg-[#0f1626] font-pixel text-[#d1f5ff] p-4 sm:p-8 flex flex-col items-center select-none">
+      
+      {/* HEADER LOGO */}
+      <div className="flex flex-col items-center mb-6">
+        <h1 className="text-4xl sm:text-6xl font-black tracking-widest text-[#ff8c00] drop-shadow-[0_4px_0_rgba(204,112,0,1)] uppercase">
+          GAIJIN RC2
+        </h1>
+        <h2 className="text-2xl sm:text-3xl text-[#00d2ff] tracking-[0.3em] font-sans font-bold mt-1">
+          外人RC2
+        </h2>
+        <div className="h-1 w-48 bg-[#00d2ff] mt-2 shadow-[0_0_10px_#00d2ff]"></div>
+      </div>
+
+      {/* TOP NAVIGATION LINKS */}
+      <div className="flex flex-wrap justify-center gap-4 sm:gap-8 mb-8 text-[#d1f5ff] uppercase text-sm sm:text-lg">
+        <Link href="/" className="flex items-center gap-2 hover:text-[#ff8c00] transition-colors">
+          <Star className="w-4 h-4 text-gray-500" /> HOME
+        </Link>
+        <span className="flex items-center gap-2 text-gray-500">
+          <Star className="w-4 h-4 text-gray-500" /> SHURIKEN SHOP
         </span>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground">Mercado Ninja</h1>
-        <p className="text-gray-500 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
-          Gaste seus Ryō ganhos nas missões para personalizar seu Perfil e o visual do aplicativo!
-        </p>
+        <span className="flex items-center gap-2 text-[#ff8c00] border-b-2 border-[#ff8c00]">
+          <Star className="w-4 h-4 text-[#ff8c00]" /> NINGU ARSENAL
+        </span>
+        <span className="flex items-center gap-2 text-gray-500">
+          <Star className="w-4 h-4 text-gray-500" /> SUPPORT
+        </span>
+        <span className="flex items-center gap-2 text-gray-500">
+          <Star className="w-4 h-4 text-gray-500" /> CYBER BLOG
+        </span>
       </div>
 
-      {/* Saldo Atual */}
-      <div className="bg-surface border-2 border-amber-200 rounded-3xl p-6 shadow-sm mb-10 w-full max-w-md flex flex-col items-center justify-center">
-        <span className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2">Seu Saldo Atual</span>
-        <div className="flex items-center gap-3 text-4xl font-black text-amber-500">
-          <Coins className="w-10 h-10 fill-amber-500" />
-          {ryo} <span className="text-xl text-amber-600/60 mt-2">Ryō</span>
-        </div>
-        {errorMsg && (
-          <div className="mt-4 text-sm font-bold text-red-500 bg-red-50 px-4 py-2 rounded-xl animate-pulse">
-            {errorMsg}
-          </div>
-        )}
+      {/* MESSAGES */}
+      <div className="h-8 mb-4 flex items-center justify-center">
+        {errorMsg && <p className="text-red-500 text-xl font-bold animate-pulse uppercase">{errorMsg}</p>}
+        {successMsg && <p className="text-[#39ff14] text-xl font-bold animate-bounce uppercase">{successMsg}</p>}
       </div>
 
-      {/* Tabs */}
-      <div className="flex w-full max-w-sm bg-surface p-1 rounded-2xl border-2 border-border mb-8 shadow-sm">
-        <button
-          onClick={() => setActiveTab('avatars')}
-          className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all ${
-            activeTab === 'avatars' ? 'bg-primary text-white shadow-md' : 'text-gray-500 hover:text-primary'
-          }`}
-        >
-          Avatares Premium
-        </button>
-        <button
-          onClick={() => setActiveTab('themes')}
-          className={`flex-1 py-3 text-sm font-bold rounded-xl transition-all ${
-            activeTab === 'themes' ? 'bg-primary text-white shadow-md' : 'text-gray-500 hover:text-primary'
-          }`}
-        >
-          Cores do Tema
-        </button>
-      </div>
-
-      {/* Tab Content: Avatares */}
-      {activeTab === 'avatars' && (
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 w-full">
-          {AVATARS.map((avatar) => {
-            const isUnlocked = unlockedAvatars.includes(avatar.id);
-            const isEquipped = activeAvatar.id === avatar.id;
-
-            return (
-              <div 
-                key={avatar.id} 
-                className={`bg-surface border-2 rounded-3xl p-5 flex flex-col items-center text-center transition-all ${
-                  isEquipped ? 'border-primary shadow-lg ring-4 ring-primary/20 scale-105' : 
-                  isUnlocked ? 'border-emerald-500/50 hover:border-emerald-500' : 'border-border hover:border-amber-300'
-                }`}
-              >
-                <div className="text-6xl mb-4 drop-shadow-md">{avatar.emoji}</div>
-                <h3 className="font-bold text-foreground text-sm sm:text-base mb-1">{avatar.name}</h3>
-                
-                {/* Status / Button */}
-                <div className="mt-auto pt-4 w-full">
-                  {isEquipped ? (
-                    <button disabled className="w-full bg-primary/10 text-primary font-black py-2 rounded-xl flex items-center justify-center gap-2 text-sm">
-                      <CheckCircle className="w-4 h-4" /> Equipado
-                    </button>
-                  ) : isUnlocked ? (
-                    <button 
-                      onClick={() => handleBuyOrEquipAvatar(avatar.id, avatar.price)}
-                      className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-black py-2 rounded-xl text-sm transition-colors shadow-md active:translate-y-1"
-                    >
-                      Equipar
-                    </button>
-                  ) : (
-                    <button 
-                      onClick={() => handleBuyOrEquipAvatar(avatar.id, avatar.price)}
-                      className="w-full bg-amber-500 hover:bg-amber-600 text-white font-black py-2 rounded-xl flex items-center justify-center gap-1.5 text-sm transition-colors shadow-md active:translate-y-1"
-                    >
-                      <Coins className="w-4 h-4 fill-white" /> {avatar.price}
-                    </button>
-                  )}
-                </div>
+      {/* MAIN CONTAINER */}
+      <div className="flex flex-col xl:flex-row gap-6 w-full max-w-7xl mx-auto">
+        
+        {/* LEFT COLUMN: HERO + GRID */}
+        <div className="flex-1 flex flex-col gap-6">
+          
+          {/* HERO BANNER (NINGU DRONE MASTERY) */}
+          <div className="bg-[#1a2639] border-4 border-[#2e4360] p-6 relative overflow-hidden shadow-[inset_0_0_20px_rgba(0,0,0,0.5)]">
+            {/* Background elements */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-fuchsia-900/20 rounded-full blur-3xl mix-blend-screen"></div>
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#00d2ff]/20 rounded-full blur-3xl mix-blend-screen"></div>
+            
+            <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+              {/* Left Character */}
+              <div className="text-8xl drop-shadow-[0_0_15px_#00d2ff]">🥷</div>
+              
+              {/* Center Text */}
+              <div className="flex-1 text-center">
+                <h2 className="text-3xl sm:text-5xl text-[#ff8c00] mb-2 uppercase drop-shadow-[2px_2px_0_#cc7000]">
+                  NINGU DRONE MASTERY!
+                </h2>
+                <p className="text-lg sm:text-xl text-[#00d2ff] uppercase mb-6">
+                  EMBRACE THE PATH OF TECHNO-SHINOBI.
+                </p>
+                <button className="bg-gradient-to-b from-[#ff8c00] to-[#cc7000] text-[#0f1626] border-2 border-[#ffb347] px-8 py-3 text-xl uppercase tracking-wider hover:brightness-110 active:translate-y-1 shadow-[4px_4px_0_#0f1626]">
+                  SHOP NOW!
+                </button>
               </div>
-            );
-          })}
-        </div>
-      )}
 
-      {/* Tab Content: Themes (Em Breve) */}
-      {activeTab === 'themes' && (
-        <div className="w-full bg-surface border-2 border-dashed border-border rounded-3xl p-12 flex flex-col items-center justify-center text-center">
-          <Palette className="w-16 h-16 text-gray-300 mb-4" />
-          <h2 className="text-2xl font-black text-gray-400 mb-2">Em Construção</h2>
-          <p className="text-gray-500 max-w-sm">
-            O ferreiro ainda está misturando as tintas! Em breve você poderá comprar temas como "Dark Sakura" ou "Neon Tokyo".
-          </p>
+              {/* Right Character/Scene */}
+              <div className="text-8xl flex gap-2 drop-shadow-[0_0_15px_#ff4b4b]">
+                🤖🚁
+              </div>
+            </div>
+          </div>
+
+          {/* ITEM GRID (2x4 on Large Screens, 2x2 on Mobile) */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {AVATARS.map((item) => {
+              const isUnlocked = unlockedAvatars.includes(item.id);
+              const isEquipped = activeAvatar.id === item.id;
+
+              return (
+                <div 
+                  key={item.id} 
+                  className={`bg-[#1a2639] border-4 flex flex-col p-4 shadow-[inset_0_0_10px_rgba(0,0,0,0.5)] relative group transition-all ${
+                    isEquipped ? 'border-[#39ff14] shadow-[0_0_15px_#39ff14]' : 'border-[#2e4360] hover:border-[#ff8c00]'
+                  }`}
+                >
+                  {/* Icon Area */}
+                  <div className="h-32 bg-[#0f1626]/50 mb-4 flex items-center justify-center text-7xl border-2 border-[#2e4360] group-hover:bg-[#0f1626]">
+                    <span className="drop-shadow-lg group-hover:scale-110 transition-transform">{item.emoji}</span>
+                  </div>
+                  
+                  {/* Text Content */}
+                  <div className="flex-1 flex flex-col">
+                    <h3 className="text-lg font-bold text-[#ff8c00] leading-tight mb-2 uppercase break-words">
+                      {item.name}
+                    </h3>
+                    <p className="text-[#00d2ff] text-xs font-sans mb-4 line-clamp-3">
+                      {item.description}
+                    </p>
+                    
+                    {/* Price and Button */}
+                    <div className="mt-auto">
+                      <div className="text-[#39ff14] text-lg mb-2 uppercase">
+                        {item.price} <span className="text-sm">Yen / RC Coins</span>
+                      </div>
+                      
+                      {isEquipped ? (
+                        <button disabled className="w-full bg-[#39ff14]/20 text-[#39ff14] border-2 border-[#39ff14] py-2 uppercase text-sm tracking-wider opacity-70">
+                          EQUIPADO
+                        </button>
+                      ) : (
+                        <button 
+                          onClick={() => handleBuyOrEquip(item.id, item.price)}
+                          className="w-full bg-gradient-to-b from-[#ff8c00] to-[#cc7000] text-[#0f1626] border-2 border-[#ffb347] py-2 uppercase text-sm font-bold tracking-wider hover:brightness-110 active:translate-y-1 shadow-[2px_2px_0_#0f1626]"
+                        >
+                          {isUnlocked ? 'EQUIPAR ITEM!' : 'ADD TO INVENTRY!'}
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
         </div>
-      )}
+
+        {/* RIGHT COLUMN: INVENTORY SIDEBAR */}
+        <div className="w-full xl:w-72 bg-[#1a2639] border-4 border-[#2e4360] p-4 flex flex-col items-center">
+          
+          <div className="w-full bg-[#0f1626] border-2 border-[#ff8c00] text-[#ff8c00] p-2 text-center mb-6 shadow-[0_0_10px_#ff8c00]">
+            <p className="text-sm uppercase">Your Balance</p>
+            <p className="text-3xl">{ryo} RC Coins</p>
+          </div>
+
+          <h3 className="text-[#00d2ff] uppercase text-xl mb-4 border-b-2 border-[#00d2ff] w-full text-center pb-2">
+            Inventory
+          </h3>
+          
+          <div className="flex-1 w-full flex flex-col gap-4 items-center overflow-y-auto">
+            {/* Shelf Item (Scrolls) */}
+            <div className="w-4/5 h-16 bg-[#2e4360] rounded-sm relative flex items-center justify-center">
+               <span className="text-4xl absolute -top-4">📜</span>
+               <div className="w-full h-2 bg-[#0f1626] absolute bottom-2"></div>
+            </div>
+            <div className="w-4/5 h-16 bg-[#2e4360] rounded-sm relative flex items-center justify-center mt-4">
+               <span className="text-4xl absolute -top-4">📜</span>
+               <div className="w-full h-2 bg-[#0f1626] absolute bottom-2"></div>
+            </div>
+            
+            {/* Shelf Item (Kunai) */}
+            <div className="w-4/5 h-32 bg-[#2e4360] rounded-sm relative flex items-center justify-center mt-4">
+               <span className="text-6xl rotate-90">🗡️</span>
+               <div className="w-2 h-full bg-[#0f1626] absolute left-4"></div>
+            </div>
+          </div>
+          
+          {/* Pixel Mouse Pointer representation */}
+          <div className="self-end mt-4 animate-bounce">
+            <MousePointer2 className="w-8 h-8 fill-white stroke-black" />
+          </div>
+        </div>
+
+      </div>
     </div>
   );
 }

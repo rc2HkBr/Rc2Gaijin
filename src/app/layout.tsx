@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Quicksand } from "next/font/google";
+import { Quicksand, VT323 } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
 import BottomBar from "@/components/BottomBar";
@@ -9,6 +9,12 @@ const quicksand = Quicksand({
   variable: "--font-quicksand",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
+});
+
+const vt323 = VT323({
+  variable: "--font-vt323",
+  subsets: ["latin"],
+  weight: ["400"],
 });
 
 export const metadata: Metadata = {
@@ -23,7 +29,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${quicksand.variable} font-sans antialiased`}>
+      <body className={`${quicksand.variable} ${vt323.variable} font-sans antialiased relative`}>
+        {/* CRT Scanline Overlay Effect */}
+        <div className="scanlines"></div>
         <GameProvider>
           <div className="flex h-screen w-full flex-col sm:flex-row overflow-hidden bg-background">
             <Sidebar />
