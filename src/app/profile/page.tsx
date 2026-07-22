@@ -10,22 +10,26 @@ export default function ProfilePage() {
   return (
     <div className="flex flex-col items-center pb-24 w-full max-w-4xl mx-auto">
       {/* Header / Banner */}
-      <div className="w-full h-48 sm:h-64 bg-gradient-to-br from-primary via-blue-600 to-purple-700 relative flex flex-col justify-end px-4 sm:px-8 pb-6 shadow-inner">
+      <div className="w-full h-48 sm:h-64 bg-primary relative flex flex-col justify-end px-4 sm:px-8 pb-6 border-b-4 border-primary-dark">
         {/* Abstract Pattern overlay */}
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '24px 24px' }}></div>
         
         <div className="relative z-10 flex flex-col sm:flex-row items-center sm:items-end gap-4 sm:gap-6 translate-y-16 sm:translate-y-12">
           {/* Avatar */}
-          <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full bg-surface border-4 border-surface shadow-2xl flex items-center justify-center text-6xl relative">
-            {activeAvatar.emoji}
-            <div className="absolute -bottom-2 sm:-bottom-3 bg-amber-500 text-white text-[10px] sm:text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full border-2 border-surface shadow-md">
+          <div className="w-28 h-28 sm:w-36 sm:h-36 rounded-full bg-surface border-4 border-surface shadow-[0_8px_0_#E5E5E5] flex items-center justify-center relative overflow-hidden">
+            {activeAvatar.imageUrl ? (
+               <img src={activeAvatar.imageUrl} alt="" className="w-full h-full object-cover" />
+            ) : (
+               <span className="text-6xl">{activeAvatar.emoji}</span>
+            )}
+            <div className="absolute bottom-1 bg-gold text-white text-[10px] sm:text-xs font-black uppercase tracking-wider px-3 py-1 rounded-full border-2 border-surface shadow-md">
               Nível 12
             </div>
           </div>
           
           <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-            <h1 className="text-3xl sm:text-4xl font-black text-foreground sm:text-white drop-shadow-sm mt-2 sm:mt-0">Naruto Uzumaki</h1>
-            <p className="text-primary sm:text-blue-100 font-bold uppercase tracking-widest text-sm flex items-center gap-1.5 mt-1">
+            <h1 className="text-3xl sm:text-4xl font-black text-foreground sm:text-white mt-2 sm:mt-0">Naruto Uzumaki</h1>
+            <p className="text-primary-dark sm:text-white/80 font-bold uppercase tracking-widest text-sm flex items-center gap-1.5 mt-1">
               <Shield className="w-4 h-4" /> {activeAvatar.name}
             </p>
           </div>
@@ -35,25 +39,25 @@ export default function ProfilePage() {
       <div className="w-full px-4 mt-20 sm:mt-24 space-y-6">
         {/* Main Stats Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full">
-          <div className="bg-surface border-2 border-border p-4 rounded-3xl flex flex-col items-center justify-center shadow-sm">
+          <div className="bg-surface border-2 border-border p-4 rounded-2xl flex flex-col items-center justify-center shadow-[0_4px_0_#E5E5E5]">
             <Swords className="w-8 h-8 text-primary mb-2" />
-            <span className="text-2xl font-black text-foreground">12,450</span>
-            <span className="text-[10px] text-gray-400 uppercase font-bold tracking-wider">XP Total</span>
+            <span className="text-2xl font-black text-gray-text">12,450</span>
+            <span className="text-[10px] text-gray-light uppercase font-bold tracking-wider">XP Total</span>
           </div>
-          <div className="bg-surface border-2 border-border p-4 rounded-3xl flex flex-col items-center justify-center shadow-sm">
-            <Flame className="w-8 h-8 text-orange-500 mb-2" />
-            <span className="text-2xl font-black text-foreground">84</span>
-            <span className="text-[10px] text-gray-400 uppercase font-bold tracking-wider">Dias Seguidos</span>
+          <div className="bg-surface border-2 border-border p-4 rounded-2xl flex flex-col items-center justify-center shadow-[0_4px_0_#E5E5E5]">
+            <Flame className="w-8 h-8 text-primary mb-2" />
+            <span className="text-2xl font-black text-gray-text">84</span>
+            <span className="text-[10px] text-gray-light uppercase font-bold tracking-wider">Dias Seguidos</span>
           </div>
-          <div className="bg-surface border-2 border-border p-4 rounded-3xl flex flex-col items-center justify-center shadow-sm">
-            <BookOpen className="w-8 h-8 text-emerald-500 mb-2" />
-            <span className="text-2xl font-black text-foreground">1,500</span>
-            <span className="text-[10px] text-gray-400 uppercase font-bold tracking-wider">Cartas Dominadas</span>
+          <div className="bg-surface border-2 border-border p-4 rounded-2xl flex flex-col items-center justify-center shadow-[0_4px_0_#E5E5E5]">
+            <BookOpen className="w-8 h-8 text-success mb-2" />
+            <span className="text-2xl font-black text-gray-text">1,500</span>
+            <span className="text-[10px] text-gray-light uppercase font-bold tracking-wider">Cartas Dominadas</span>
           </div>
-          <div className="bg-surface border-2 border-border p-4 rounded-3xl flex flex-col items-center justify-center shadow-sm">
-            <Coins className="w-8 h-8 text-amber-500 mb-2" />
-            <span className="text-2xl font-black text-foreground">{ryo}</span>
-            <span className="text-[10px] text-gray-400 uppercase font-bold tracking-wider">Ouro (Ryō)</span>
+          <div className="bg-surface border-2 border-border p-4 rounded-2xl flex flex-col items-center justify-center shadow-[0_4px_0_#E5E5E5]">
+            <Coins className="w-8 h-8 text-gold mb-2" />
+            <span className="text-2xl font-black text-gray-text">{ryo}</span>
+            <span className="text-[10px] text-gray-light uppercase font-bold tracking-wider">Ouro (Ryō)</span>
           </div>
         </div>
 

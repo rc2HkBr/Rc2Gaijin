@@ -27,9 +27,13 @@ export default function Sidebar() {
         </div>
 
         {/* RPG HUD PANEL */}
-        <div className="bg-background border-2 border-border rounded-2xl p-4 mb-6 shadow-inner mx-2">
-          <div className="text-xs font-bold text-gray-400 uppercase mb-3 flex items-center gap-2">
-            <span className="text-xl">{activeAvatar.emoji}</span>
+        <div className="bg-surface border-2 border-border rounded-2xl p-4 mb-6 mx-2 shadow-[0_4px_0_#E5E5E5]">
+          <div className="text-xs font-bold text-gray-text uppercase mb-3 flex items-center gap-2">
+            {activeAvatar.imageUrl ? (
+              <img src={activeAvatar.imageUrl} alt="" className="w-8 h-8 rounded-full border-2 border-border object-cover" />
+            ) : (
+              <span className="text-xl">{activeAvatar.emoji}</span>
+            )}
             <span className="truncate flex-1">{activeAvatar.name}</span>
             <span className="text-primary bg-primary/10 px-2 py-0.5 rounded text-[10px]">Nv. 1</span>
           </div>
@@ -45,16 +49,16 @@ export default function Sidebar() {
             
             {/* Combo/Streak */}
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-orange-500 font-bold text-sm">
-                <Flame className="w-5 h-5 fill-orange-500" /> Ofensiva
+              <div className="flex items-center gap-2 text-primary font-bold text-sm">
+                <Flame className="w-5 h-5 fill-primary" /> Ofensiva
               </div>
               <span className="font-black text-foreground">1 Dia</span>
             </div>
 
             {/* Ryō / Coins */}
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-amber-500 font-bold text-sm">
-                <Coins className="w-5 h-5 fill-amber-500" /> Ryō
+              <div className="flex items-center gap-2 text-gold font-bold text-sm">
+                <Coins className="w-5 h-5 fill-gold" /> Ryō
               </div>
               <span className="font-black text-foreground">{ryo}</span>
             </div>
@@ -62,7 +66,7 @@ export default function Sidebar() {
           
           {/* XP Bar */}
           <div className="mt-4">
-            <div className="flex justify-between text-[10px] font-bold text-gray-500 mb-1">
+            <div className="flex justify-between text-[10px] font-bold text-gray-text mb-1 uppercase">
               <span>XP Atual</span>
               <span>150 / 500</span>
             </div>

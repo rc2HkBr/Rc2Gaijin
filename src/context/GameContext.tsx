@@ -11,55 +11,53 @@ export interface Avatar {
   description: string;
 }
 
-// Transformamos a lista de Avatares no "Ningu Arsenal"
+// Transformamos a lista de Avatares no "Dojo Clássico"
 export const AVATARS: Avatar[] = [
   { 
-    id: 'kitsune_drone', 
-    name: 'KITSUNE DRONE V2', 
-    emoji: '🦊', 
-    imageUrl: '/images/shop/kitsune_drone.png',
+    id: 'ninja_classico', 
+    name: 'Ninja Tradicional', 
+    emoji: '🥷', 
+    imageUrl: '/images/shop/ninja_classico.png',
     price: 150,
-    description: 'Um drone de vigilância tático e furtivo com câmera de alta resolução.'
+    description: 'Um mestre nas artes da furtividade e infiltração.'
   },
   { 
-    id: 'mecha_shuriken', 
-    name: 'MECHA SHURIKEN X-1', 
-    emoji: '❄️', 
-    imageUrl: '/images/shop/mecha_shuriken.png',
-    price: 130,
-    description: 'Um shuriken autônomo com múltiplos modos de ataque e rastreamento.'
-  },
-  { 
-    id: 'cyber_kunai', 
-    name: 'CYBER KUNAI REMOTE', 
+    id: 'samurai_honrado', 
+    name: 'Samurai Honrado', 
     emoji: '🗡️', 
-    imageUrl: '/images/shop/cyber_kunai.png',
+    imageUrl: '/images/shop/samurai_honrado.png',
+    price: 130,
+    description: 'Guerreiro nobre treinado no caminho da espada e da disciplina.'
+  },
+  { 
+    id: 'lutadora_karate', 
+    name: 'Mestra de Karate', 
+    emoji: '🥋', 
+    imageUrl: '/images/shop/lutadora_karate.png',
     price: 150,
-    description: 'Um dispositivo de controle remoto versátil para controlar drones e mechas à distância.'
+    description: 'Especialista em combate corpo a corpo e golpes de alto impacto.'
   },
   { 
-    id: 'onimaru_mech', 
-    name: 'ONIMARU BATTLE MECH', 
-    emoji: '🤖', 
-    imageUrl: '/images/shop/onimaru_mech.png',
+    id: 'shuriken_aco', 
+    name: 'Shuriken de Aço', 
+    emoji: '❄️', 
+    imageUrl: '/images/shop/shuriken_aco.png',
     price: 130,
-    description: 'Um mecha bípede pesado para combate direto e defesa.'
+    description: 'Arma de arremesso clássica, balanceada para precisão perfeita.'
   },
   { 
-    id: 'ninja_scroll', 
-    name: 'NINJA SCROLL UPGRADE', 
+    id: 'pergaminho_sabedoria', 
+    name: 'Pergaminho Antigo', 
     emoji: '📜', 
-    imageUrl: '/images/shop/ninja_scroll.png',
     price: 130,
-    description: 'Um pergaminho de aprimoramento que desbloqueia novas habilidades.'
+    description: 'Contém técnicas ancestrais seladas há séculos.'
   },
   { 
-    id: 'shinobi_cam', 
-    name: 'SHINOBI CAM SYSTEM', 
-    emoji: '📹', 
-    imageUrl: '/images/shop/shinobi_cam.png',
+    id: 'mascara_oni', 
+    name: 'Máscara de Oni', 
+    emoji: '👹', 
     price: 130,
-    description: 'Um sistema de câmera avançado para reconhecimento e coleta de informações.'
+    description: 'Artefato que intimida inimigos e protege o usuário.'
   },
 ];
 
@@ -77,8 +75,8 @@ const GameContext = createContext<GameContextProps | undefined>(undefined);
 
 export function GameProvider({ children }: { children: ReactNode }) {
   const [ryo, setRyo] = useState(1500); 
-  const [activeAvatarId, setActiveAvatarId] = useState('kitsune_drone');
-  const [unlockedAvatars, setUnlockedAvatars] = useState<string[]>(['kitsune_drone']);
+  const [activeAvatarId, setActiveAvatarId] = useState('ninja_classico');
+  const [unlockedAvatars, setUnlockedAvatars] = useState<string[]>(['ninja_classico']);
 
   useEffect(() => {
     const savedRyo = localStorage.getItem('gaijin_ryo');
