@@ -6,6 +6,7 @@ export interface Avatar {
   id: string;
   name: string;
   emoji: string;
+  imageUrl?: string;
   price: number;
   description: string;
 }
@@ -16,13 +17,15 @@ export const AVATARS: Avatar[] = [
     id: 'kitsune_drone', 
     name: 'KITSUNE DRONE V2', 
     emoji: '🦊', 
+    imageUrl: '/images/shop/kitsune_drone.png',
     price: 150,
     description: 'Um drone de vigilância tático e furtivo com câmera de alta resolução.'
   },
   { 
     id: 'mecha_shuriken', 
     name: 'MECHA SHURIKEN X-1', 
-    emoji: '❄️', // Shuriken representation 
+    emoji: '❄️', 
+    imageUrl: '/images/shop/mecha_shuriken.png',
     price: 130,
     description: 'Um shuriken autônomo com múltiplos modos de ataque e rastreamento.'
   },
@@ -30,6 +33,7 @@ export const AVATARS: Avatar[] = [
     id: 'cyber_kunai', 
     name: 'CYBER KUNAI REMOTE', 
     emoji: '🗡️', 
+    imageUrl: '/images/shop/cyber_kunai.png',
     price: 150,
     description: 'Um dispositivo de controle remoto versátil para controlar drones e mechas à distância.'
   },
@@ -37,6 +41,7 @@ export const AVATARS: Avatar[] = [
     id: 'onimaru_mech', 
     name: 'ONIMARU BATTLE MECH', 
     emoji: '🤖', 
+    imageUrl: '/images/shop/onimaru_mech.png',
     price: 130,
     description: 'Um mecha bípede pesado para combate direto e defesa.'
   },
@@ -44,6 +49,7 @@ export const AVATARS: Avatar[] = [
     id: 'ninja_scroll', 
     name: 'NINJA SCROLL UPGRADE', 
     emoji: '📜', 
+    imageUrl: '/images/shop/ninja_scroll.png',
     price: 130,
     description: 'Um pergaminho de aprimoramento que desbloqueia novas habilidades.'
   },
@@ -51,6 +57,7 @@ export const AVATARS: Avatar[] = [
     id: 'shinobi_cam', 
     name: 'SHINOBI CAM SYSTEM', 
     emoji: '📹', 
+    imageUrl: '/images/shop/shinobi_cam.png',
     price: 130,
     description: 'Um sistema de câmera avançado para reconhecimento e coleta de informações.'
   },

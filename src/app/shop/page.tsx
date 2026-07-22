@@ -118,8 +118,12 @@ export default function ArcadeShopPage() {
                   }`}
                 >
                   {/* Icon Area */}
-                  <div className="h-32 bg-[#0f1626]/50 mb-4 flex items-center justify-center text-7xl border-2 border-[#2e4360] group-hover:bg-[#0f1626]">
-                    <span className="drop-shadow-lg group-hover:scale-110 transition-transform">{item.emoji}</span>
+                  <div className="h-32 bg-[#0f1626]/50 mb-4 flex items-center justify-center border-2 border-[#2e4360] group-hover:bg-[#0f1626] overflow-hidden">
+                    {item.imageUrl ? (
+                      <img src={item.imageUrl} alt={item.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform" />
+                    ) : (
+                      <span className="text-7xl drop-shadow-lg group-hover:scale-110 transition-transform">{item.emoji}</span>
+                    )}
                   </div>
                   
                   {/* Text Content */}
