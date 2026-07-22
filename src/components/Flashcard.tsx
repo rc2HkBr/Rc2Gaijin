@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Volume2, Sparkles, RefreshCw } from 'lucide-react';
+import { Volume2, Sparkles, RefreshCw, PenTool } from 'lucide-react';
 import { playJapaneseAudio } from '@/utils/audio';
 
 interface FlashcardProps {
@@ -85,10 +85,22 @@ export default function Flashcard({
             <span className="text-xs font-bold uppercase tracking-wider text-primary">
               {strokeCount} Traço{strokeCount > 1 ? 's' : ''}
             </span>
-              <Volume2 className="w-6 h-6" />
-            </button>
+            <div className="flex gap-2">
+              <button
+                className="p-3 rounded-2xl hover:bg-primary/5 text-primary/50 hover:text-primary transition-colors"
+                title="Editar"
+              >
+                <PenTool className="w-5 h-5" />
+              </button>
+              <button
+                onClick={handleAudio}
+                className="p-3 rounded-2xl bg-primary/10 hover:bg-primary/20 text-primary transition-transform active:scale-95"
+                title="Ouvir Pronúncia"
+              >
+                <Volume2 className="w-6 h-6" />
+              </button>
+            </div>
           </div>
-
           <div className="flex flex-col items-center my-auto">
             <div className="text-7xl font-bold text-foreground mb-2">{hiragana}</div>
             <div className="text-4xl font-black text-primary tracking-widest">{romaji.toUpperCase()}</div>
