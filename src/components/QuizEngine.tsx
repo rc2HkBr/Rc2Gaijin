@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Volume2, Heart, X, Check, Award, ArrowRight, BookOpen, Music, PenTool, Brain, CheckCircle } from 'lucide-react';
+import { Volume2, Heart, X, Check, Award, ArrowRight, BookOpen, Music, PenTool, Brain, CheckCircle, Coins } from 'lucide-react';
 import Link from 'next/link';
 import Flashcard from '@/components/Flashcard';
 import DrawingCanvas from '@/components/DrawingCanvas';
@@ -19,8 +19,9 @@ export default function QuizEngine({ groupName, characters }: QuizEngineProps) {
   const [mode, setMode] = useState<Mode>('PRESENTATION');
   const [presentationIndex, setPresentationIndex] = useState(0);
   const [testIndex, setTestIndex] = useState(0);
-  const [hearts, setHearts] = useState(5);
+  const [hearts, setHearts] = useState(3);
   const [score, setScore] = useState(0);
+  const [ryo, setRyo] = useState(0);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<'correct' | 'wrong' | null>(null);
 
@@ -57,6 +58,7 @@ export default function QuizEngine({ groupName, characters }: QuizEngineProps) {
     if (choice === correctValue) {
       setFeedback('correct');
       setScore((s) => s + 10);
+      setRyo((r) => r + 5); // Ganha 5 moedas de ouro por acerto
       playFeedbackSound('correct');
     } else {
       setFeedback('wrong');
@@ -117,14 +119,14 @@ export default function QuizEngine({ groupName, characters }: QuizEngineProps) {
         <p className="text-gray-500 mb-6">Parabéns! Você dominou o conjunto <span className="font-bold text-primary">{groupName}</span>!</p>
 
         <div className="grid grid-cols-2 gap-4 w-full mb-8">
-          <div className="bg-surface border-2 border-border p-4 rounded-2xl">
-            <span className="text-xs text-gray-400 uppercase font-bold block">Pontos XP</span>
-            <span className="text-2xl font-black text-amber-500">+{score} XP</span>
+          <div className="bg-surface border-2 border-border p-4 rounded-2xl flex flex-col items-center">
+            <span className="text-[10px] text-gray-400 uppercase font-black tracking-wider block">Bônus de XP</span>
+            <span className="text-2xl font-black text-secondary">+{score} XP</span>
           </div>
-          <div className="bg-surface border-2 border-border p-4 rounded-2xl">
-            <span className="text-xs text-gray-400 uppercase font-bold block">Vidas Restantes</span>
-            <span className="text-2xl font-black text-primary flex items-center justify-center gap-1">
-              <Heart className="w-5 h-5 fill-primary" /> {hearts}
+          <div className="bg-surface border-2 border-border p-4 rounded-2xl flex flex-col items-center">
+            <span className="text-[10px] text-gray-400 uppercase font-black tracking-wider block">Ouro Saqueado</span>
+            <span className="text-2xl font-black text-amber-500 flex items-center justify-center gap-1">
+              <Coins className="w-5 h-5 fill-amber-500" /> +{ryo}
             </span>
           </div>
         </div>
@@ -305,9 +307,16 @@ export default function QuizEngine({ groupName, characters }: QuizEngineProps) {
               feedback === 'correct' ? 'bg-success/10 border-success text-success' : 'bg-red-500/10 border-red-500 text-red-500'
             }`}
           >
-            <div className="flex items-center gap-3 font-bold text-lg">
-              {feedback === 'correct' ? <Check className="w-6 h-6" /> : <X className="w-6 h-6" />}
-              {feedback === 'correct' ? 'Excelente! Resposta correta!' : `Incorreto. A resposta é ${mode === 'SOUND_TEST' ? currentCharacter.hiragana : currentCharacter.romaji}`}
+            <div className="flex flex-col">
+              <div className="flex items-center gap-2 font-black text-lg uppercase tracking-tight">
+                {feedback === 'correct' ? <Check className="w-6 h-6" /> : <X className="w-6 h-6" />}
+                {feedback === 'correct' ? 'Golpe Perfeito, Shinobi!' : `Sua defesa falhou...`}
+              </div>
+              {feedback === 'wrong' && (
+                <span className="text-sm font-semibold opacity-90">
+                  O selo correto era {mode === 'SOUND_TEST' ? currentCharacter.hiragana : currentCharacter.romaji}. Você perdeu 1 coração de vida.
+                </span>
+              )}
             </div>
             <button
               onClick={handleNextQuizStep}
