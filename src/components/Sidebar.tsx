@@ -88,7 +88,7 @@ export default function Sidebar() {
           </button>
 
           <Link
-            href="#"
+            href="/ranking"
             className="flex items-center gap-4 px-4 py-3 rounded-2xl hover:bg-border/50 text-foreground font-bold text-base transition-colors group"
           >
             <span className="text-gray-400 group-hover:text-primary transition-colors">
@@ -97,7 +97,7 @@ export default function Sidebar() {
             Ranking Guilda
           </Link>
           <Link
-            href="#"
+            href="/profile"
             className="flex items-center gap-4 px-4 py-3 rounded-2xl hover:bg-border/50 text-foreground font-bold text-base transition-colors group"
           >
             <span className="text-gray-400 group-hover:text-primary transition-colors">
