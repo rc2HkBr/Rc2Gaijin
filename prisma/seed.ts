@@ -1,7 +1,9 @@
 import { PrismaClient } from '@prisma/client'
 import { PrismaLibSql } from '@prisma/adapter-libsql'
+import { createClient } from '@libsql/client'
 
-const adapter = new PrismaLibSql({ url: 'file:dev.db' })
+const client = createClient({ url: 'file:dev.db' })
+const adapter = new PrismaLibSql(client)
 const prisma = new PrismaClient({ adapter })
 
 async function main() {
