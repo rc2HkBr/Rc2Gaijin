@@ -17,6 +17,7 @@ export default function Sidebar() {
     { name: "NINGU ARSENAL", href: "/trilha", icon: <Swords className="w-5 h-5" /> },
     { name: "CYBER KARAOKE", href: "/jpop", icon: <Music className="w-5 h-5" /> },
     { name: "NIHONGO HISTORIA", href: "/origens", icon: <BookOpen className="w-5 h-5" /> },
+    { name: "AULA AO VIVO", href: "/aulas", icon: <Video className="w-5 h-5" /> },
   ];
 
   return (
