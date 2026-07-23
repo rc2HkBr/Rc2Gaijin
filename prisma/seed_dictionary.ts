@@ -1,6 +1,4 @@
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { prisma } from '../src/lib/prisma'
 
 async function main() {
   console.log('🔄 Inicializando Seed do Banco Kanji (MOD.04)...')
@@ -14,33 +12,29 @@ async function main() {
         kanji, 
         reading, 
         romaji, 
-        meaningPt, 
-        content="DictionaryEntry", 
-        content_rowid="id"
+        meaningPt
       );
     `)
     
     // Triggers to keep FTS in sync with DictionaryEntry
     await prisma.$executeRawUnsafe(`
       CREATE TRIGGER IF NOT EXISTS DictionaryEntry_ai AFTER INSERT ON DictionaryEntry BEGIN
-        INSERT INTO DictionaryEntry_fts(rowid, id, kanji, reading, romaji, meaningPt) 
-        VALUES (new.id, new.id, new.kanji, new.reading, new.romaji, new.meaningPt);
+        INSERT INTO DictionaryEntry_fts(id, kanji, reading, romaji, meaningPt) 
+        VALUES (new.id, new.kanji, new.reading, new.romaji, new.meaningPt);
       END;
     `)
 
     await prisma.$executeRawUnsafe(`
       CREATE TRIGGER IF NOT EXISTS DictionaryEntry_ad AFTER DELETE ON DictionaryEntry BEGIN
-        INSERT INTO DictionaryEntry_fts(DictionaryEntry_fts, rowid, id, kanji, reading, romaji, meaningPt) 
-        VALUES('delete', old.id, old.id, old.kanji, old.reading, old.romaji, old.meaningPt);
+        DELETE FROM DictionaryEntry_fts WHERE id = old.id;
       END;
     `)
 
     await prisma.$executeRawUnsafe(`
       CREATE TRIGGER IF NOT EXISTS DictionaryEntry_au AFTER UPDATE ON DictionaryEntry BEGIN
-        INSERT INTO DictionaryEntry_fts(DictionaryEntry_fts, rowid, id, kanji, reading, romaji, meaningPt) 
-        VALUES('delete', old.id, old.id, old.kanji, old.reading, old.romaji, old.meaningPt);
-        INSERT INTO DictionaryEntry_fts(rowid, id, kanji, reading, romaji, meaningPt) 
-        VALUES (new.id, new.id, new.kanji, new.reading, new.romaji, new.meaningPt);
+        DELETE FROM DictionaryEntry_fts WHERE id = old.id;
+        INSERT INTO DictionaryEntry_fts(id, kanji, reading, romaji, meaningPt) 
+        VALUES (new.id, new.kanji, new.reading, new.romaji, new.meaningPt);
       END;
     `)
     console.log('✅ FTS5 configurado com sucesso.')
