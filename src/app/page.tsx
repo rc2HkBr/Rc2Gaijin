@@ -282,6 +282,23 @@ export default function Home() {
           </div>
         </Link>
 
+        {/* Vocabulário do Cotidiano: Cyan */}
+        <Link
+          href="/vocabulario"
+          className="bg-[#051622] border-2 border-cyan-400/80 hover:border-cyan-300 rounded-3xl p-5 flex items-center gap-4 transition-all hover:scale-[1.02] active:scale-95 group shadow-[0_0_20px_rgba(6,182,212,0.2)]"
+        >
+          <div className="w-14 h-14 rounded-2xl bg-cyan-950 border border-cyan-400 flex items-center justify-center shrink-0 shadow-[0_0_12px_rgba(6,182,212,0.5)]">
+            <Sparkles className="w-7 h-7 text-cyan-300 animate-pulse" />
+          </div>
+          <div>
+            <span className="text-[10px] font-black text-cyan-400 uppercase tracking-widest">NOVO! COTIDIANO</span>
+            <h3 className="text-base font-black text-white group-hover:text-cyan-300 transition-colors">
+              Cards de Vocabulário
+            </h3>
+            <p className="text-xs text-gray-400 font-medium mt-0.5">Cenas da vida normal em Tóquio</p>
+          </div>
+        </Link>
+
         {/* Module 5: Purple */}
         <Link
           href="/origens"
