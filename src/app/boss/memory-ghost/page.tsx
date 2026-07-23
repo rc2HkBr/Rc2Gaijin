@@ -31,6 +31,22 @@ const BOSS_DATA = {
         { kana: 'さかな', answer: 'Peixe', options: ['Peixe', 'Pássaro', 'Sapo', 'Urso'] },
         { kana: 'くま', answer: 'Urso', options: ['Lobo', 'Macaco', 'Urso', 'Cachorro'] }
       ]
+    },
+    {
+      title: "ROUND 4: Ação Incessante",
+      attacks: [
+        { kana: 'たべる', answer: 'Comer', options: ['Beber', 'Dormir', 'Comer', 'Andar'] },
+        { kana: 'のむ', answer: 'Beber', options: ['Comer', 'Beber', 'Falar', 'Ler'] },
+        { kana: 'はしる', answer: 'Correr', options: ['Correr', 'Pular', 'Nadar', 'Pensar'] }
+      ]
+    },
+    {
+      title: "ROUND 5: Cidades de Neon",
+      attacks: [
+        { kana: 'とうきょう', answer: 'Tóquio', options: ['Tóquio', 'Kyoto', 'Osaka', 'Sapporo'] },
+        { kana: 'がっこう', answer: 'Escola', options: ['Loja', 'Escola', 'Hospital', 'Estação'] },
+        { kana: 'みせ', answer: 'Loja', options: ['Casa', 'Templo', 'Rua', 'Loja'] }
+      ]
     }
   ],
   ultimate: {

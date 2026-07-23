@@ -49,6 +49,13 @@ Para garantir que você nunca mais esqueça os Kanas aprendidos, você utilizar�
   <li>Mantenha o Verso (Back Template) com <code>{{Word Meaning}}</code> e <code>{{Picture}}</code> para conferir a resposta.</li>
 </ol>
 <p class="mt-2 italic text-gray-400">Assim, a frente da carta mostrará apenas o Hiragana e tocará o áudio! Quando avançar para os Kanjis, basta colocar o <code>{{Word}}</code> de volta.</p>
+
+<br/><strong class="text-secondary uppercase text-lg">Arsenal Ninja: Extensões do Anki</strong><br/>
+<ul class="list-disc pl-5 space-y-2 text-gray-300 mt-2">
+  <li><strong class="text-white">Review Heatmap:</strong> O seu "medidor de combos". Cria um gráfico visual estilo GitHub na tela inicial do Anki que exibe a sua sequência de dias ininterruptos de estudo.</li>
+  <li><strong class="text-white">Pokemanki (Gamification):</strong> Uma das várias extensões de RPG que recompensa o seu estudo com pontos de experiência (XP), unindo sua rotina de flashcards a uma mecânica real de jogo.</li>
+  <li><strong class="text-white">Kanji Grid:</strong> A sua "árvore de habilidades". Gera um relatório visual impressionante de todos os kanjis que você já aprendeu no baralho, permitindo acompanhar sua progressão de forma clara.</li>
+</ul>
     `,
     emoji: "🧠",
     color: "bg-secondary",

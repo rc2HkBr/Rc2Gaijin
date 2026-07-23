@@ -11,39 +11,38 @@ export interface Avatar {
   description: string;
 }
 
-// Sprites de Games Clássicos
 export const AVATARS: Avatar[] = [
   { 
-    id: 'mewtwo', 
-    name: 'MEWTWO (PROJETO X)', 
-    emoji: '', 
-    imageUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png',
+    id: 'shinobi_sombras', 
+    name: 'SHINOBI DAS SOMBRAS', 
+    emoji: '🥷', 
+    imageUrl: '/images/origens/kanji.png', // Fallback temporário (depois alteraremos para a arte real)
     price: 300,
-    description: 'Um clone genético criado para ser a arma definitiva no ciberespaço.'
+    description: 'Um mestre furtivo. Aumenta a evasão contra armadilhas de gramática.'
   },
   { 
-    id: 'gengar', 
-    name: 'GENGAR (SHADOW)', 
-    emoji: '', 
-    imageUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png',
+    id: 'ronin_errante', 
+    name: 'RONIN ERRANTE', 
+    emoji: '⚔️', 
+    imageUrl: '/images/origens/katakana.png', // Fallback temporário
     price: 250,
-    description: 'Uma entidade sombria que rouba dados atravessando as paredes do firewall.'
+    description: 'Um guerreiro sem mestre. Focado em força bruta para destruir Kanjis complexos.'
   },
   { 
-    id: 'scyther', 
-    name: 'SCYTHER (NINJA BUG)', 
-    emoji: '', 
-    imageUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/123.png',
+    id: 'gaijin_aco', 
+    name: 'GAIJIN DE AÇO', 
+    emoji: '🛡️', 
+    imageUrl: '/images/origens/hiragana.png', // Fallback temporário
     price: 200,
-    description: 'Velocidade extrema e lâminas cortantes. Perfeito para infiltração de sistemas.'
+    description: 'Estrangeiro equipado com armadura ocidental. Especialista em resistir a ataques longos.'
   },
   { 
-    id: 'blastoise', 
-    name: 'BLASTOISE (MECHA)', 
-    emoji: '', 
-    imageUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png',
+    id: 'onna_bugeisha', 
+    name: 'ONNA-BUGEISHA', 
+    emoji: '🌸', 
+    imageUrl: '', // Fica só o emoji enquanto a imagem não gera
     price: 250,
-    description: 'Armadura pesada e canhões de dados de alto impacto.'
+    description: 'Guerreira nobre com naginata. Velocidade implacável na leitura de Katakana.'
   }
 ];
 
@@ -61,8 +60,8 @@ const GameContext = createContext<GameContextProps | undefined>(undefined);
 
 export function GameProvider({ children }: { children: ReactNode }) {
   const [ryo, setRyo] = useState(1500); 
-  const [activeAvatarId, setActiveAvatarId] = useState('ninja_classico');
-  const [unlockedAvatars, setUnlockedAvatars] = useState<string[]>(['ninja_classico']);
+  const [activeAvatarId, setActiveAvatarId] = useState('shinobi_sombras');
+  const [unlockedAvatars, setUnlockedAvatars] = useState<string[]>(['shinobi_sombras']);
 
   useEffect(() => {
     const savedRyo = localStorage.getItem('gaijin_ryo');
