@@ -331,8 +331,10 @@ export default function Home() {
               <Crown className="w-8 h-8 text-cyan-300 animate-bounce" />
             </div>
             <div>
-              <h3 className="text-lg font-black text-white uppercase tracking-wide">TORNE-SE VIP CHUNIN</h3>
-              <p className="text-sm text-cyan-200/90 font-medium">Desbloqueie todas as lições de Kanji, áudios e modo offline</p>
+              <h3 className="text-lg font-black text-white uppercase tracking-wide">TORNE-SE VIP CHUNIN 💎</h3>
+              <p className="text-sm text-cyan-200/90 font-medium">
+                ♾️ Vidas Infinitas (HP) • 🚫 Sem Anúncios • 🎧 Deck 1.5k com Áudio Nativo
+              </p>
             </div>
           </div>
           
