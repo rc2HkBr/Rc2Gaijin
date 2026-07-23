@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, ShoppingBag, Swords, Music } from 'lucide-react';
+import { Home, ShoppingBag, Swords, Music, User } from 'lucide-react';
 
 export default function BottomBar() {
   const pathname = usePathname();
@@ -12,6 +12,7 @@ export default function BottomBar() {
     { name: "SHOP", href: "/shop", icon: ShoppingBag },
     { name: "TRILHA", href: "/trilha", icon: Swords },
     { name: "KARAOKE", href: "/jpop", icon: Music },
+    { name: "PERFIL", href: "/perfil", icon: User },
   ];
 
   return (
