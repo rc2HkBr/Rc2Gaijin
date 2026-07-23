@@ -115,7 +115,7 @@ export const JPOP_SONGS: JPopSong[] = [
     title: "Plastic Love",
     titleRomaji: "Plastic Love",
     artist: "Mariya Takeuchi (竹内まりや)",
-    youtubeId: "3bNITQR4Uso",
+    youtubeId: "u6y5NSiRPOw",
     difficulty: "Avançado",
     coverEmoji: "💖",
     lyrics: [
