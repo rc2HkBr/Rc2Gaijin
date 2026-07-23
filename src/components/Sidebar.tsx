@@ -15,7 +15,7 @@ export default function Sidebar() {
     { name: "HOME", href: "/", icon: <Home className="w-5 h-5" /> },
     { name: "SHURIKEN SHOP", href: "/shop", icon: <ShoppingBag className="w-5 h-5" /> },
     { name: "NINGU ARSENAL", href: "/trilha", icon: <Swords className="w-5 h-5" /> },
-    { name: "SUPPORT", href: "/", icon: <Settings className="w-5 h-5" /> },
+    { name: "CYBER KARAOKE", href: "/jpop", icon: <Music className="w-5 h-5" /> },
     { name: "CYBER BLOG", href: "/", icon: <BookOpen className="w-5 h-5" /> },
   ];
 
