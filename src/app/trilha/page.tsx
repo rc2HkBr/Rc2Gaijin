@@ -1,255 +1,250 @@
 'use client';
 
-import { Mountain, Play, ChevronLeft, BookOpen, XCircle, FileText } from 'lucide-react';
+import { Mountain, Play, ChevronLeft, BookOpen, XCircle, FileText, Swords, Music, PenTool, Skull, Zap, Video, Gift, Crown, Sparkles, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
+import { sfx } from '@/utils/sfx';
 
-// Dados do Curso (Módulos do Usuário)
-const COURSE_MODULES = [
+// Trilha Completa Interativa de Prática Shinobi
+const TRILHA_MODULES = [
   {
     id: 1,
-    title: "O Despertar Visual",
-    subtitle: "Memorização com Mnemônicos",
-    shortDesc: "A base do curso é dominar o formato e o som das letras usando a Associação Visual. Estude por grupos familiares (Família A, KA, SA, TA, NA).",
+    title: "Módulo 01: O Despertar do Kana",
+    subtitle: "Vogais & Família K — Hiragana Base",
+    shortDesc: "Domine os 46 caracteres fundamentais do Hiragana usando mnemônicos visuais e associação gráfica.",
     fullContent: `
-A base do curso é dominar o formato e o som das letras usando a Associação Visual (Flashcards ilustrados). Em vez de decorar linhas soltas, você conectará a letra a uma imagem. Estude por grupos familiares:<br/><br/>
-<ul class="list-disc pl-5 space-y-2 text-emerald-400">
-  <li><strong class="text-white">Família A:</strong> あ (a - <em>asa</em>/manhã, imagem de um sol nascendo), い (i - <em>inu</em>/cachorro, orelhas de cachorro).</li>
-  <li><strong class="text-white">Família KA:</strong> か (ka - <em>kasa</em>/guarda-chuva), き (ki - árvore).</li>
-  <li><strong class="text-white">Família SA:</strong> さ (sa - <em>sakana</em>/peixe), し (shi - <em>shinshi</em>/senhor).</li>
-  <li><strong class="text-white">Família TA:</strong> た (ta - <em>taiko</em>/tambor), ち (chi - sangue).</li>
-  <li><strong class="text-white">Família NA:</strong> な (na - <em>natsu</em>/verão, sol forte), に (ni - <em>nihon</em>/Japão, bandeira).</li>
-</ul><br/>
-<strong class="text-primary uppercase">Ação:</strong> Após finalizar os 46 caracteres do Hiragana, aplique a mesma técnica visual aos 46 caracteres do Katakana (ex: ア de <em>aisu</em>/sorvete, イ de <em>Igirisu</em>/Inglaterra).
+<h3 class="text-lg font-black text-cyan-400 mb-2">👁️ Método de Associação Visual:</h3>
+<p class="mb-4">Para gravar cada caractere no cérebro de forma indelével, associe o traço a uma imagem:</p>
+<ul class="list-disc pl-5 space-y-2 text-emerald-300">
+  <li><strong class="text-white">あ (A):</strong> Imagem de uma <em>Asa</em> de anjo sobre o sol.</li>
+  <li><strong class="text-white">い (I):</strong> Imagem das orelhas de um <em>Inu</em> (cachorro).</li>
+  <li><strong class="text-white">か (KA):</strong> Imagem de um guarda-chuva (<em>Kasa</em>) sob a chuva.</li>
+  <li><strong class="text-white">き (KI):</strong> Imagem de uma árvore (<em>Ki</em>).</li>
+</ul>
     `,
     emoji: "👁️",
-    color: "bg-success",
-    shadow: "shadow-[4px_4px_0_#4BB200]",
-    hasPractice: true,
+    color: "bg-emerald-500/20 border-emerald-500/60 shadow-[0_0_15px_rgba(16,185,129,0.2)]",
+    badgeColor: "bg-emerald-950 text-emerald-300 border-emerald-500/50",
+    actions: [
+      { label: "🎯 Praticar Vogais (A, I, U, E, O)", href: "/lesson?group=vowels", bg: "bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold" },
+      { label: "⚡ Praticar Família K (KA, KI, KU, KE, KO)", href: "/lesson?group=k", bg: "bg-emerald-600 hover:bg-emerald-500 text-white font-bold" },
+      { label: "⚔️ Enfrentar Fantasma da Memória", href: "/boss/memory-ghost", bg: "bg-red-600 hover:bg-red-500 text-white font-bold" },
+    ]
   },
   {
     id: 2,
-    title: "O Motor de Retenção",
-    subtitle: "Domínio do Anki",
-    shortDesc: "Para garantir que você nunca mais esqueça os Kanas aprendidos, você utilizará o Anki, o melhor aplicativo de Sistema de Repetição Espaçada.",
+    title: "Módulo 02: Katakana & Armadilhas Visuais",
+    subtitle: "Clones Graficos — シ vs ツ & ソ vs ン",
+    shortDesc: "Aprenda a diferenciar caracteres com traços idênticos no Katakana e evite as ilusões dos chefes.",
     fullContent: `
-Para garantir que você nunca mais esqueça os Kanas aprendidos, você utilizará o <strong class="text-white">Anki</strong>, o melhor aplicativo de Sistema de Repetição Espaçada (SRS).<br/><br/>
-<ol class="list-decimal pl-5 space-y-2 text-secondary">
-  <li><strong class="text-white">Criação de Conta:</strong> Cadastre-se gratuitamente no <strong>AnkiWeb</strong> para salvar seu progresso na nuvem.</li>
-  <li><strong class="text-white">Instalação:</strong> Instale o programa no seu computador ou celular e sincronize a conta.</li>
-  <li><strong class="text-white">Prática:</strong> Adicione seus flashcards visuais e revise-os todos os dias. O algoritmo mostrará as letras no momento exato em que seu cérebro estiver prestes a esquecê-las.</li>
-</ol><br/>
-<strong class="text-primary uppercase text-lg">Hack Ninja: Foco no Kana (Kaishi 1.5k)</strong><br/>
-<p class="mt-2 text-gray-300">Para focar a sua revisão apenas no som e na leitura, você pode alterar o layout do seu deck Kaishi 1.5k usando o Anki no Computador:</p>
-<ol class="list-decimal pl-5 space-y-2 text-primary mt-2">
-  <li>Na tela inicial do Anki (PC), clique em <strong>Painel</strong> (Browse).</li>
-  <li>Selecione o deck Kaishi 1.5k na lateral esquerda e clique em qualquer carta.</li>
-  <li>Clique no botão <strong>Cartões...</strong> (Cards...) para abrir o Editor de Modelos.</li>
-  <li>Na caixa referente à Frente (Front Template), apague <code>{{Word}}</code> e coloque:<br/><code class="bg-black text-emerald-400 px-2 py-1 rounded inline-block mt-1">{{Word Furigana}}<br/>{{Word Audio}}</code></li>
-  <li>Mantenha o Verso (Back Template) com <code>{{Word Meaning}}</code> e <code>{{Picture}}</code> para conferir a resposta.</li>
-</ol>
-<p class="mt-2 italic text-gray-400">Assim, a frente da carta mostrará apenas o Hiragana e tocará o áudio! Quando avançar para os Kanjis, basta colocar o <code>{{Word}}</code> de volta.</p>
-
-<br/><strong class="text-secondary uppercase text-lg">Arsenal Ninja: Extensões do Anki</strong><br/>
-<ul class="list-disc pl-5 space-y-2 text-gray-300 mt-2">
-  <li><strong class="text-white">Review Heatmap:</strong> O seu "medidor de combos". Cria um gráfico visual estilo GitHub na tela inicial do Anki que exibe a sua sequência de dias ininterruptos de estudo.</li>
-  <li><strong class="text-white">Pokemanki (Gamification):</strong> Uma das várias extensões de RPG que recompensa o seu estudo com pontos de experiência (XP), unindo sua rotina de flashcards a uma mecânica real de jogo.</li>
-  <li><strong class="text-white">Kanji Grid:</strong> A sua "árvore de habilidades". Gera um relatório visual impressionante de todos os kanjis que você já aprendeu no baralho, permitindo acompanhar sua progressão de forma clara.</li>
+<h3 class="text-lg font-black text-blue-400 mb-2">⚔️ O Desafio dos Clones:</h3>
+<p class="mb-4">No Katakana, a diferença entre o SHI (シ) e o TSU (ツ) está no ângulo dos traços:</p>
+<ul class="list-disc pl-5 space-y-2 text-blue-300">
+  <li><strong class="text-white">シ (SHI):</strong> Os traços são desenhados de baixo para cima (olhar horizontal).</li>
+  <li><strong class="text-white">ツ (TSU):</strong> Os traços caem de cima para baixo (olhar vertical).</li>
 </ul>
     `,
-    emoji: "🧠",
-    color: "bg-secondary",
-    shadow: "shadow-[4px_4px_0_#00d2ff]",
-    hasPractice: false,
+    emoji: "🌸",
+    color: "bg-blue-500/20 border-blue-500/60 shadow-[0_0_15px_rgba(59,130,246,0.2)]",
+    badgeColor: "bg-blue-950 text-blue-300 border-blue-500/50",
+    actions: [
+      { label: "🌸 Desafiar Kunoichi Sakura (Armadilhas Katakana)", href: "/boss/kunoichi-sakura", bg: "bg-pink-600 hover:bg-pink-500 text-white font-extrabold" },
+      { label: "📖 Ver Tabela de Katakana", href: "/lesson?group=vowels", bg: "bg-blue-600 hover:bg-blue-500 text-white font-bold" },
+    ]
   },
   {
     id: 3,
-    title: "Gamificação e Reflexos",
-    subtitle: "Treino Rápido em Apps",
-    shortDesc: "Ganhe velocidade de leitura e reflexos rápidos para ler mangás usando a tecnologia a seu favor nas horas vagas.",
+    title: "Módulo 03: Cyber Karaoke — Imersão Sonora",
+    subtitle: "Aprendizado Lúdico com J-Pop e Anime Hits",
+    shortDesc: "Cante seus animes favoritos enquanto treina o ouvido, o furigana e o preenchimento de lacunas sonora.",
     fullContent: `
-Para complementar o Anki e ganhar velocidade de leitura (reflexos rápidos para ler mangás), use a tecnologia a seu favor nas horas vagas:<br/><br/>
-<ul class="list-disc pl-5 space-y-2 text-primary">
-  <li><strong class="text-white">Hiragana/Katakana Memory hint:</strong> Aplicativo oficial e gratuito da Fundação Japão. Ele já vem com cards ilustrados e minigames excelentes para forçar sua memória de forma lúdica.</li>
-  <li><strong class="text-white">Obenkyou:</strong> App altamente recomendado para treinar o reconhecimento puro de hiragana e katakana através de testes rápidos.</li>
-  <li><strong class="text-white">Duolingo:</strong> Útil para criar o hábito de estudar 5 minutos diários, mantendo a motivação por meio de pontuações, níveis e desafios divertidos.</li>
-</ul>
+<h3 class="text-lg font-black text-pink-400 mb-2">🎤 Método de Transcrição Audial:</h3>
+<p class="mb-4">Ao ouvir a música com o Modo Desafio ativado, o aplicativo ocultará palavras-chave. Digite a palavra ouvida para fixar o vocabulário real.</p>
     `,
-    emoji: "🎮",
-    color: "bg-primary",
-    shadow: "shadow-[4px_4px_0_#ff8c00]",
-    hasPractice: false,
+    emoji: "🎤",
+    color: "bg-pink-500/20 border-pink-500/60 shadow-[0_0_15px_rgba(236,72,153,0.2)]",
+    badgeColor: "bg-pink-950 text-pink-300 border-pink-500/50",
+    actions: [
+      { label: "🎤 Abrir Jukebox Cyber Karaoke", href: "/jpop", bg: "bg-pink-600 hover:bg-pink-500 text-white font-extrabold" },
+      { label: "🎵 Praticar Shinunoga E-Wa (Fujii Kaze)", href: "/jpop/play/1", bg: "bg-purple-600 hover:bg-purple-500 text-white font-bold" },
+    ]
   },
   {
     id: 4,
-    title: "Aplicação Prática",
-    subtitle: "Cursos Oficiais Gratuitos",
-    shortDesc: "Agora que você reconhece as letras, precisa ver como elas formam a gramática e as conversas cotidianas usando materiais oficiais.",
+    title: "Módulo 04: Banco Kanji & Escrita Kakijun",
+    subtitle: "Caligrafia Interativa no Canvas",
+    shortDesc: "Aprenda a ordem correta dos traços dos Kanjis (Kakijun) e desenhe na tela do celular por cima da marca d'água.",
     fullContent: `
-Agora que você reconhece as letras, precisa ver como elas formam a gramática e as conversas cotidianas:<br/><br/>
-<ul class="list-disc pl-5 space-y-2 text-[#e11d48]">
-  <li><strong class="text-white">Plataforma Minato (Fundação Japão):</strong> Inscreva-se no curso <em>Marugoto</em>. É um curso completo, com suporte a estudo independente e módulos iniciais disponíveis em português, ideal para aprender a língua e a cultura ao mesmo tempo.</li>
-  <li><strong class="text-white">Irodori:</strong> Focado no idioma para o dia a dia e trabalho no Japão. Oferece materiais em PDF e áudios em MP3 100% gratuitos em português (níveis A1 e A2).</li>
-  <li><strong class="text-white">NHK World Japan:</strong> O curso <em>Easy Japanese</em> oferece lições online com áudio que variam do nível iniciante ao intermediário, ensinando frases úteis e gramática básica.</li>
-</ul>
+<h3 class="text-lg font-black text-amber-400 mb-2">✍️ Memória Motora no Canvas:</h3>
+<p class="mb-4">Desenhar os ideogramas no quadro interativo ativa a memória cinestésica do cérebro, facilitando a retenção duradoura.</p>
     `,
-    emoji: "🎓",
-    color: "bg-[#e11d48]",
-    shadow: "shadow-[4px_4px_0_#be123c]",
-    hasPractice: false,
+    emoji: "✍️",
+    color: "bg-amber-500/20 border-amber-500/60 shadow-[0_0_15px_rgba(245,158,11,0.2)]",
+    badgeColor: "bg-amber-950 text-amber-300 border-amber-500/50",
+    actions: [
+      { label: "✍️ Forjar Kanjis no Canvas Interativo", href: "/kaishi", bg: "bg-amber-500 hover:bg-amber-400 text-black font-extrabold" },
+      { label: "📚 Dicionário Visual Kaishi 1.5k", href: "/kaishi", bg: "bg-purple-600 hover:bg-purple-500 text-white font-bold" },
+    ]
   },
   {
     id: 5,
-    title: "O Endgame",
-    subtitle: "Transição para Leitura e Kanji",
-    shortDesc: "Quando a sua leitura estiver automática, é o momento de dar o salto para os Kanjis e a fluência real (Kaishi 1.5k, Tadoku).",
+    title: "Módulo 05: Invasão do Shogun (Eventos Épicos)",
+    subtitle: "Invasão de Fim de Semana — Estilo Katsuhiro Otomo",
+    shortDesc: "Enfrente o gigante Shogun Raijin em batalhas de reflexo com chuva intensa, relâmpagos e 4 poses de sprite.",
     fullContent: `
-Quando a sua leitura de Hiragana e Katakana estiver automática, é o momento de dar o salto para os Kanjis e a fluência em leitura:<br/><br/>
-<ul class="list-disc pl-5 space-y-2 text-[#a855f7]">
-  <li><strong class="text-white">Prática de Leitura (Imersão):</strong> Acesse plataformas gratuitas como <strong class="text-white">Tadoku.org</strong> e <strong class="text-white">Yomujp</strong>. Elas disponibilizam livros e textos curtos divididos por níveis de dificuldade, todos com áudio e leitura focada em iniciantes.</li>
-  <li><strong class="text-white">A Ponte para o Kanji:</strong> Use o aplicativo <strong class="text-white">Kanji Memory hint</strong> para começar a memorizar os ideogramas básicos através da mesma técnica de associação por imagens que você usou no Kana, ou baixe o app <strong class="text-white">Kanji Study</strong>.</li>
-  <li><strong class="text-white">Vocabulário em Massa:</strong> Importe para o seu Anki o deck <strong class="text-white">Kaishi 1.5k</strong> (Vocabulário Básico Japonês em pt-BR), que contém áudio, imagens e frases de exemplo. No início, apoie-se fortemente no <em>furigana</em> (a pronúncia escrita em hiragana em cima do kanji) para absorver novas palavras sem travar nos kanjis complexos.</li>
-</ul><br/>
-<strong class="text-primary uppercase text-lg">Sua Rotina Ninja de Estudos:</strong><br/>
-Para vencer este "jogo", a consistência é a sua principal arma. Estude de <strong class="text-white">5 a 10 novos cartões por dia</strong> no Anki, dedique cerca de 10 minutos para praticar a escrita à mão (focando na ordem correta dos traços para treinar a memória motora), e faça um quiz ou leia um pequeno texto nos finais de semana para consolidar o conhecimento.
+<h3 class="text-lg font-black text-cyan-400 mb-2">⚡ Raids de Tempo Limitado:</h3>
+<p class="mb-4">Vença o chefe em até 4.0 segundos por pergunta para coletar **+500 Ryō** e desbloquear itens de sobrevivência na Shuriken Shop.</p>
     `,
-    emoji: "👺",
-    color: "bg-[#7E22CE]",
-    shadow: "shadow-[4px_4px_0_#9333EA]",
-    hasPractice: false,
+    emoji: "⚡",
+    color: "bg-cyan-500/20 border-cyan-500/60 shadow-[0_0_15px_rgba(6,182,212,0.2)]",
+    badgeColor: "bg-cyan-950 text-cyan-300 border-cyan-500/50",
+    actions: [
+      { label: "⚡ Desafiar Shogun Raijin (Estilo Akira)", href: "/boss/shogun-raijin", bg: "bg-cyan-400 hover:bg-cyan-300 text-black font-extrabold" },
+      { label: "🛍️ Comprar Poção de Cura na Shuriken Shop", href: "/shop", bg: "bg-emerald-600 hover:bg-emerald-500 text-white font-bold" },
+    ]
+  },
+  {
+    id: 6,
+    title: "Módulo 06: Aulas ao Vivo & Senseis Nativo",
+    subtitle: "Marketplace de Transmissão via Google Meet",
+    shortDesc: "Agende 1 hora de conversa particular com professores reais para atingir a fluência absoluta.",
+    fullContent: `
+<h3 class="text-lg font-black text-purple-400 mb-2">📹 Marketplace de Aulas ao Vivo:</h3>
+<p class="mb-4">Escolha seu Sensei (Katsumoto, Yumi, Kenji, Hikari ou Ryu), selecione o horário vago e reserve com split automático de pagamento.</p>
+    `,
+    emoji: "🎓",
+    color: "bg-purple-500/20 border-purple-500/60 shadow-[0_0_15px_rgba(168,85,247,0.2)]",
+    badgeColor: "bg-purple-950 text-purple-300 border-purple-500/50",
+    actions: [
+      { label: "📹 Agendar Aula Particular no Marketplace", href: "/aulas", bg: "bg-purple-600 hover:bg-purple-500 text-white font-extrabold" },
+      { label: "💎 Assinar Plano Chunin VIP (Vidas Infinitas)", href: "/planos", bg: "bg-cyan-400 hover:bg-cyan-300 text-black font-extrabold" },
+    ]
   }
 ];
 
 export default function TrilhaMissionsPage() {
-  const [activeModuleIndex, setActiveModuleIndex] = useState<number>(0);
   const [modalContent, setModalContent] = useState<{title: string, content: string} | null>(null);
 
   return (
-    <div className="min-h-screen w-full bg-background text-foreground flex flex-col items-center select-none pb-24 font-sans relative z-10">
+    <div className="min-h-screen w-full bg-[#06020c] text-foreground flex flex-col items-center select-none pb-28 font-sans relative z-10">
       
       {/* HEADER ARCADE */}
-      <div className="w-full h-12 sm:h-16 bg-surface border-b border-border flex items-center px-4 sm:px-8 top-0 sticky z-40 shadow-md">
-        <Link href="/" className="flex items-center gap-2 hover:opacity-70 transition-opacity mr-4 text-primary">
-           <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+      <div className="w-full h-16 bg-[#0c0517] border-b border-purple-900/50 flex items-center px-4 sm:px-8 top-0 sticky z-40 shadow-lg">
+        <Link href="/" className="flex items-center gap-2 hover:opacity-70 transition-opacity mr-4 text-cyan-400">
+           <ChevronLeft className="w-6 h-6" />
         </Link>
         <div className="flex items-center">
-          <h1 className="text-xl sm:text-2xl font-pixel text-primary uppercase mr-2 sm:mr-4 drop-shadow-[0_0_5px_rgba(255,140,0,0.8)]">
+          <h1 className="text-xl sm:text-2xl font-black text-white uppercase mr-4 tracking-wide">
             GAIJIN RC2
           </h1>
-          <div className="w-px h-6 bg-border mx-2"></div>
-          <span className="text-xs sm:text-sm font-pixel text-secondary uppercase tracking-widest mt-1">
-            MANUAL DO NINJA
+          <div className="w-px h-6 bg-purple-900/60 mx-2"></div>
+          <span className="text-xs font-bold text-amber-400 uppercase tracking-widest">
+            TRILHA NINJA DE PRÁTICA
           </span>
         </div>
       </div>
 
       {/* MISSION LIST CONTAINER */}
-      <div className="w-full max-w-4xl px-4 sm:px-8 mt-6 flex flex-col gap-10 relative z-10">
+      <div className="w-full max-w-4xl px-4 sm:px-6 mt-6 flex flex-col gap-8 relative z-10">
         
         {/* Banner Intro */}
-        <div className="bg-[#1a2332] border-4 border-[#2c3e50] p-6 sm:p-8 flex flex-col items-center text-center shadow-[0_0_15px_rgba(0,0,0,0.5)] relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] pointer-events-none"></div>
-          <Mountain className="w-10 h-10 sm:w-12 sm:h-12 text-secondary mb-3 relative z-10 drop-shadow-[0_0_5px_rgba(0,210,255,0.8)]" />
-          <h2 className="text-2xl sm:text-3xl font-pixel text-primary mb-2 uppercase drop-shadow-[0_0_8px_rgba(255,140,0,0.8)] leading-none relative z-10">
-            A JORNADA DO HERÓI
+        <div className="bg-gradient-to-r from-[#0d1626] to-[#080d19] border-2 border-cyan-500/60 p-6 sm:p-8 rounded-3xl flex flex-col items-center text-center shadow-[0_0_25px_rgba(6,182,212,0.15)] relative overflow-hidden">
+          <Mountain className="w-12 h-12 text-cyan-400 mb-3 animate-pulse" />
+          <h2 className="text-2xl sm:text-4xl font-black text-white mb-2 uppercase tracking-wide">
+            ROTEIRO COMPLETO DE PRÁTICA INTERATIVA
           </h2>
-          <p className="text-xs sm:text-sm text-gray-400 font-sans relative z-10 leading-relaxed max-w-2xl">
-            Bem-vindo ao Curso Completo de Hiragana e Katakana. Siga este roteiro que une a técnica visual, o poder da tecnologia (Anki) e os melhores recursos oficiais gratuitos.
+          <p className="text-xs sm:text-sm text-cyan-200/90 font-medium max-w-2xl leading-relaxed">
+            Siga os módulos abaixo em sequência. Cada módulo contém botões diretos para aulas, karaokê, caligrafia em canvas e batalhas de chefes!
           </p>
         </div>
 
         {/* Missions Path */}
         <div className="flex flex-col relative w-full items-center">
           
-          {/* Vertical Path Line (Cyber Cable) */}
-          <div className="absolute top-10 bottom-10 w-2 bg-[#2c3e50] border-x border-[#1a2332] z-0 shadow-[0_0_10px_rgba(0,0,0,0.8)]"></div>
+          {/* Vertical Cyber Line */}
+          <div className="absolute top-10 bottom-10 w-1.5 bg-gradient-to-b from-emerald-500 via-pink-500 to-purple-600 z-0 opacity-40 shadow-[0_0_15px_rgba(168,85,247,0.5)]"></div>
 
-          {COURSE_MODULES.map((module, index) => {
-            const isActive = activeModuleIndex === index;
-            
-            return (
-              <div key={module.id} className="relative z-10 w-full max-w-3xl flex flex-col items-center mb-12 sm:mb-16">
+          {TRILHA_MODULES.map((module) => (
+            <div key={module.id} className="relative z-10 w-full flex flex-col items-center mb-8">
+              
+              {/* Mission Card */}
+              <div 
+                className={`w-full bg-[#0a0414] border-2 ${module.color} rounded-3xl p-5 sm:p-6 flex flex-col gap-4 shadow-xl relative overflow-hidden`}
+              >
                 
-                {/* Mission Card */}
-                <div 
-                  onClick={() => setActiveModuleIndex(index)}
-                  className={`w-full bg-surface-dark border-2 sm:border-[3px] p-4 sm:p-5 transition-all flex flex-col sm:flex-row gap-4 sm:gap-6 shadow-[2px_2px_0_#000] sm:shadow-[4px_4px_0_#000] cursor-pointer ${
-                    isActive ? 'border-secondary scale-[1.02]' : 'border-border'
-                  }`}
-                >
-                  
-                  {/* Character Avatar */}
-                  <div className="w-20 h-20 sm:w-32 sm:h-32 shrink-0 flex items-center justify-center border-2 sm:border-[3px] border-border relative overflow-hidden bg-black self-center sm:self-start">
-                    <span className="text-4xl sm:text-6xl drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">{module.emoji}</span>
-                    
-                    {/* Retro Corner Accents */}
-                    <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-white/30"></div>
-                    <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-white/30"></div>
-                  </div>
-
-                  {/* Mission Details */}
-                  <div className="flex-1 flex flex-col">
-                    <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-2 gap-2">
-                      <div>
-                        <h3 className="text-xs sm:text-sm font-pixel text-primary uppercase tracking-widest mb-1 drop-shadow-[0_0_5px_rgba(255,140,0,0.5)]">
-                          MÓDULO 0{module.id}
-                        </h3>
-                        <h2 className="text-xl sm:text-2xl font-pixel text-secondary leading-tight drop-shadow-[0_0_2px_rgba(0,210,255,0.5)]">
-                          {module.title}
-                        </h2>
-                      </div>
+                {/* Header info */}
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-14 h-14 rounded-2xl bg-black border border-purple-800/60 flex items-center justify-center text-3xl shrink-0 shadow-inner">
+                      {module.emoji}
                     </div>
-                    
-                    <p className="text-[10px] sm:text-xs font-bold text-success mb-2 uppercase tracking-wide">{"// "}{module.subtitle}</p>
-                    <p className="text-xs sm:text-sm text-gray-400 font-sans leading-relaxed mb-4">
-                      {module.shortDesc}
-                    </p>
-
-                    {/* Action Buttons */}
-                    <div className="mt-auto flex flex-col sm:flex-row gap-3">
-                      <button 
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setModalContent({ title: `MÓDULO 0${module.id}: ${module.title}`, content: module.fullContent });
-                        }}
-                        className={`flex-1 px-4 py-2 text-[#111] font-pixel text-base sm:text-lg uppercase border-2 border-white flex items-center justify-center gap-2 transition-all shadow-[2px_2px_0_#000] active:translate-y-1 active:shadow-none hover:brightness-110 ${module.color}`}
-                      >
-                        <BookOpen className="w-4 h-4 sm:w-5 sm:h-5 text-[#111]" /> ABRIR MANUAL
-                      </button>
-
-                      {module.hasPractice && (
-                        <Link 
-                          href="/lesson?group=vowels" 
-                          onClick={(e) => e.stopPropagation()}
-                          className="flex-1 px-4 py-2 bg-[#111] border-2 border-white text-white font-pixel text-base sm:text-lg uppercase shadow-[2px_2px_0_#000] hover:bg-white hover:text-black transition-colors flex items-center justify-center gap-2"
-                        >
-                          <Play className="w-4 h-4" /> PRATICAR
-                        </Link>
-                      )}
+                    <div>
+                      <span className={`text-[10px] font-black px-2 py-0.5 rounded border ${module.badgeColor} uppercase tracking-widest`}>
+                        MÓDULO 0{module.id}
+                      </span>
+                      <h2 className="text-lg sm:text-xl font-black text-white mt-1">
+                        {module.title}
+                      </h2>
                     </div>
                   </div>
+
+                  <button 
+                    onClick={() => {
+                      sfx.playClick();
+                      setModalContent({ title: module.title, content: module.fullContent });
+                    }}
+                    className="bg-black/60 hover:bg-purple-950 border border-purple-800/50 text-purple-300 text-xs font-bold px-3 py-1.5 rounded-xl transition-colors shrink-0 flex items-center gap-1"
+                  >
+                    <BookOpen className="w-3.5 h-3.5" /> Manual
+                  </button>
+                </div>
+
+                {/* Subtitle & Short Desc */}
+                <div>
+                  <p className="text-xs font-bold text-amber-400 uppercase tracking-wide mb-1">
+                    {"// "}{module.subtitle}
+                  </p>
+                  <p className="text-xs sm:text-sm text-gray-300 font-medium leading-relaxed">
+                    {module.shortDesc}
+                  </p>
+                </div>
+
+                {/* Interactive Action Buttons */}
+                <div className="pt-2 border-t border-purple-900/40 flex flex-col sm:flex-row gap-2.5">
+                  {module.actions.map((act, i) => (
+                    <Link
+                      key={i}
+                      href={act.href}
+                      onClick={() => sfx.playClick()}
+                      className={`flex-1 text-center text-xs py-3 px-4 rounded-2xl transition-transform hover:scale-[1.02] active:scale-95 shadow-md uppercase tracking-wider ${act.bg}`}
+                    >
+                      {act.label}
+                    </Link>
+                  ))}
                 </div>
 
               </div>
-            );
-          })}
+
+            </div>
+          ))}
         </div>
 
       </div>
 
       {/* MODAL DO MANUAL */}
       {modalContent && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-2xl max-h-[85vh] bg-surface-dark border-4 border-secondary shadow-[0_0_30px_rgba(0,210,255,0.3)] flex flex-col overflow-hidden animate-in fade-in zoom-in duration-200">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+          <div className="w-full max-w-xl max-h-[85vh] bg-[#0c0517] border-2 border-cyan-400 rounded-3xl shadow-[0_0_40px_rgba(6,182,212,0.3)] flex flex-col overflow-hidden animate-fade-in">
+            
             {/* Modal Header */}
-            <div className="bg-secondary p-4 flex justify-between items-center shrink-0">
-              <h2 className="text-black font-pixel text-xl sm:text-2xl uppercase tracking-widest flex items-center gap-2">
-                <FileText className="w-5 h-5" />
+            <div className="bg-[#031424] p-4 border-b border-cyan-500/50 flex justify-between items-center shrink-0">
+              <h2 className="text-white font-black text-base sm:text-lg uppercase tracking-wide flex items-center gap-2">
+                <FileText className="w-5 h-5 text-cyan-400" />
                 {modalContent.title}
               </h2>
               <button 
                 onClick={() => setModalContent(null)}
-                className="text-black hover:scale-110 transition-transform"
+                className="text-gray-400 hover:text-white transition-colors"
               >
                 <XCircle className="w-6 h-6" />
               </button>
@@ -257,15 +252,15 @@ export default function TrilhaMissionsPage() {
             
             {/* Modal Content */}
             <div 
-              className="p-6 overflow-y-auto font-sans text-sm sm:text-base text-gray-300 leading-relaxed"
+              className="p-6 overflow-y-auto font-sans text-xs sm:text-sm text-gray-200 leading-relaxed space-y-3"
               dangerouslySetInnerHTML={{ __html: modalContent.content }}
             />
             
             {/* Modal Footer */}
-            <div className="p-4 border-t border-border bg-[#111] flex justify-end shrink-0">
+            <div className="p-4 border-t border-purple-900/50 bg-black flex justify-end shrink-0">
               <button 
                 onClick={() => setModalContent(null)}
-                className="px-6 py-2 bg-secondary text-black font-pixel text-lg uppercase shadow-[2px_2px_0_#000] hover:brightness-110 active:translate-y-1 active:shadow-none"
+                className="px-6 py-2.5 bg-cyan-400 hover:bg-cyan-300 text-black font-black text-xs uppercase rounded-xl transition-all shadow-md"
               >
                 ENTENDIDO
               </button>
