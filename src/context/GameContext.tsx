@@ -11,55 +11,39 @@ export interface Avatar {
   description: string;
 }
 
-// Itens da Loja Cyber-Ninja Arcade
+// Sprites de Games Clássicos
 export const AVATARS: Avatar[] = [
   { 
-    id: 'kitsune_drone', 
-    name: 'KITSUNE DRONE V2', 
-    emoji: '🦊', 
-    imageUrl: '/images/shop/kitsune_drone.png',
-    price: 150,
-    description: 'Kitsune Drone - Um drone de vigilância tático e furtivo com câmera de alta resolução.'
+    id: 'mewtwo', 
+    name: 'MEWTWO (PROJETO X)', 
+    emoji: '', 
+    imageUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png',
+    price: 300,
+    description: 'Um clone genético criado para ser a arma definitiva no ciberespaço.'
   },
   { 
-    id: 'mecha_shuriken', 
-    name: 'MECHA SHURIKEN X-1', 
-    emoji: '⚙️', 
-    imageUrl: '/images/shop/mecha_shuriken.png',
-    price: 130,
-    description: 'Mecha Shuriken - Um shuriken autônomo com múltiplos modos de ataque e rastreamento.'
+    id: 'gengar', 
+    name: 'GENGAR (SHADOW)', 
+    emoji: '', 
+    imageUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/94.png',
+    price: 250,
+    description: 'Uma entidade sombria que rouba dados atravessando as paredes do firewall.'
   },
   { 
-    id: 'cyber_kunai', 
-    name: 'CYBER KUNAI REMOTE', 
-    emoji: '🔪', 
-    imageUrl: '/images/shop/cyber_kunai.png',
-    price: 150,
-    description: 'Cyber Kunai Remote - Um dispositivo de controle remoto versátil para controlar drones e mechas à distância.'
+    id: 'scyther', 
+    name: 'SCYTHER (NINJA BUG)', 
+    emoji: '', 
+    imageUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/123.png',
+    price: 200,
+    description: 'Velocidade extrema e lâminas cortantes. Perfeito para infiltração de sistemas.'
   },
   { 
-    id: 'onimaru_mech', 
-    name: 'ONIMARU BATTLE MECH', 
-    emoji: '🤖', 
-    imageUrl: '/images/shop/onimaru_mech.png',
-    price: 130,
-    description: 'Onimaru Battle Mech - Um mecha bípede pesado para combate direto e defesa.'
-  },
-  { 
-    id: 'ninja_scroll', 
-    name: 'NINJA SCROLL UPGRADE KIT', 
-    emoji: '📜',
-    imageUrl: '/images/shop/ninja_scroll.png', 
-    price: 130,
-    description: 'Ninja Scroll Upgrade - Um pergaminho de aprimoramento que desbloqueia novas habilidades.'
-  },
-  { 
-    id: 'shinobi_cam', 
-    name: 'SHINOBI CAM SYSTEM', 
-    emoji: '📹', 
-    imageUrl: '/images/shop/shinobi_cam.png',
-    price: 130,
-    description: 'Shinobi Cam - Um sistema de câmera avançado para reconhecimento e coleta de informações.'
+    id: 'blastoise', 
+    name: 'BLASTOISE (MECHA)', 
+    emoji: '', 
+    imageUrl: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png',
+    price: 250,
+    description: 'Armadura pesada e canhões de dados de alto impacto.'
   }
 ];
 

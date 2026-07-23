@@ -108,7 +108,7 @@ export default function DojoShopPage() {
                   {/* Icon Area */}
                   <div className="h-40 bg-black mb-3 flex items-center justify-center border-2 border-border relative overflow-hidden p-2 group">
                     {item.imageUrl ? (
-                      <img src={item.imageUrl} alt={item.name} className="w-full h-full object-contain filter group-hover:brightness-125 transition-all" />
+                      <img src={item.imageUrl} alt={item.name} className="w-full h-full object-contain filter group-hover:brightness-125 transition-all" style={{ imageRendering: 'pixelated' }} />
                     ) : (
                       <span className="text-6xl drop-shadow-[0_0_10px_rgba(0,210,255,0.5)]">{item.emoji}</span>
                     )}

@@ -31,7 +31,7 @@ export default function Sidebar() {
         <div className="bg-[#15191e] border-2 border-border/50 rounded-xl p-4 mb-6 mx-2 shadow-inner">
           <div className="text-xs font-pixel text-secondary uppercase mb-4 flex flex-col items-center gap-3 tracking-wider text-center">
             {activeAvatar.imageUrl ? (
-              <img src={activeAvatar.imageUrl} alt="" className="w-24 h-24 rounded border-2 border-primary object-contain bg-black shadow-[0_0_10px_rgba(255,140,0,0.5)] p-1" />
+              <img src={activeAvatar.imageUrl} alt="" className="w-24 h-24 rounded border-2 border-primary object-contain bg-black shadow-[0_0_10px_rgba(255,140,0,0.5)] p-1" style={{ imageRendering: 'pixelated' }} />
             ) : (
               <span className="text-6xl drop-shadow-[0_0_10px_rgba(255,140,0,0.5)]">{activeAvatar.emoji}</span>
             )}
