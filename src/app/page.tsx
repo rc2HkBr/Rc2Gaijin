@@ -28,14 +28,18 @@ export default function Home() {
       </div>
 
       {/* Banner / Header */}
-      <div className="w-full mb-10 text-center space-y-3">
+      <div className="w-full mb-8 text-center space-y-3">
         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary font-bold text-xs uppercase tracking-wider">
           <Map className="w-4 h-4" /> Mapa Mundi Ninja
         </span>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-foreground">A Jornada do Shinobi</h1>
-        <p className="text-gray-500 text-sm sm:text-base max-w-md mx-auto">
+        <p className="text-gray-500 text-sm sm:text-base max-w-md mx-auto mb-4">
           Cumpra missões diárias, derrote chefões e domine a leitura para se tornar um Mestre Ninja!
         </p>
+        
+        <Link href="/origens" className="inline-flex items-center gap-2 bg-purple-900/20 text-purple-400 border border-purple-500/50 px-4 py-2 rounded-full font-bold text-sm uppercase hover:bg-purple-900/40 transition-colors shadow-sm">
+          <BookOpen className="w-4 h-4" /> A Lenda da Escrita Japonesa
+        </Link>
       </div>
 
       <Heatmap />
