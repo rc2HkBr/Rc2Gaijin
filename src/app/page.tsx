@@ -38,7 +38,7 @@ export default function Home() {
         </p>
         
         <Link href="/origens" className="inline-flex items-center gap-2 bg-purple-900/20 text-purple-400 border border-purple-500/50 px-4 py-2 rounded-full font-bold text-sm uppercase hover:bg-purple-900/40 transition-colors shadow-sm">
-          <BookOpen className="w-4 h-4" /> A Lenda da Escrita Japonesa
+          <BookOpen className="w-4 h-4" /> Nihongo Historia
         </Link>
       </div>
 
