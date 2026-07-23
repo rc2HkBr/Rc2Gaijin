@@ -1,9 +1,18 @@
 'use client';
 
 import { useState } from 'react';
-import { Music, ChevronDown, ChevronUp, Sparkles, ChevronLeft, Terminal } from 'lucide-react';
+import { Music, ChevronDown, ChevronUp, Sparkles, ChevronLeft, Terminal, Disc3, Radio } from 'lucide-react';
 import { JPOP_SONGS, JPopLyricLine } from '@/data/jpopData';
 import Link from 'next/link';
+
+/* ── CRT Overlay (pink/blue) ── */
+const KaraokeCRT = () => (
+  <div className="pointer-events-none absolute inset-0 z-50 overflow-hidden">
+    <div className="absolute inset-0 opacity-[0.03]" style={{
+      backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,0,255,0.08) 2px, rgba(255,0,255,0.08) 4px)',
+    }} />
+  </div>
+);
 
 function LyricLineCard({ line }: { line: JPopLyricLine }) {
   const [showNotes, setShowNotes] = useState(false);
@@ -11,93 +20,101 @@ function LyricLineCard({ line }: { line: JPopLyricLine }) {
   const [showRomaji, setShowRomaji] = useState(true);
   const [showTranslation, setShowTranslation] = useState(true);
 
-  return (
-    <div className={`w-full bg-surface-dark border-2 sm:border-[3px] p-3 sm:p-6 transition-all duration-300 shadow-[2px_2px_0_#000] sm:shadow-[4px_4px_0_#000] relative overflow-hidden group ${
-        line.isChorus ? 'border-primary' : 
-        line.isEnglish ? 'border-secondary' : 'border-border'
-      }`}>
-      
-      {/* Retro Corner Accents */}
-      <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-white/20"></div>
-      <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-white/20"></div>
+  const borderColor = line.isChorus ? 'border-pink-500/60' : line.isEnglish ? 'border-cyan-500/60' : 'border-gray-800/60';
+  const glowColor = line.isChorus ? 'shadow-[0_0_15px_rgba(255,0,128,0.1)]' : '';
 
-      {/* Line Number & Chorus Badge */}
-      <div className="flex items-center justify-between mb-2 sm:mb-4 flex-wrap gap-1">
-        <span className="text-[10px] sm:text-sm font-pixel uppercase tracking-wider sm:tracking-widest text-gray-500">
-          L.{line.id < 10 ? `0${line.id}` : line.id}
+  return (
+    <div className={`w-full bg-black/80 border ${borderColor} ${glowColor} p-4 sm:p-6 transition-all duration-300 relative overflow-hidden group hover:border-pink-500/40`}>
+      <KaraokeCRT />
+
+      {/* Corner brackets */}
+      <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-pink-500/30" />
+      <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-pink-500/30" />
+      <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-pink-500/30" />
+      <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-pink-500/30" />
+
+      {/* Line Number & Badges & Toggles */}
+      <div className="flex items-center justify-between mb-3 flex-wrap gap-1 relative z-10">
+        <div className="flex items-center gap-2">
+          <span className="font-mono text-[10px] text-gray-600 uppercase tracking-wider">
+            L.{String(line.id).padStart(2, '0')}
+          </span>
           {line.isChorus && (
-            <span className="ml-2 text-[#111] bg-primary px-1.5 py-0.5 border border-white text-[9px] sm:text-sm">CHORUS</span>
+            <span className="bg-pink-600/20 text-pink-400 border border-pink-600/40 px-1.5 py-0.5 font-pixel text-[9px] uppercase">
+              ♪ CHORUS
+            </span>
           )}
           {line.isEnglish && (
-            <span className="ml-2 text-[#111] bg-secondary px-1.5 py-0.5 border border-white text-[9px] sm:text-sm">ENG</span>
+            <span className="bg-cyan-600/20 text-cyan-400 border border-cyan-600/40 px-1.5 py-0.5 font-pixel text-[9px] uppercase">
+              ENG
+            </span>
           )}
-        </span>
-        <div className="flex gap-1 sm:gap-2 font-pixel">
-          <button
-            onClick={() => setShowHiragana(!showHiragana)}
-            className={`text-[10px] sm:text-sm px-1.5 sm:px-2 py-0.5 sm:py-1 border transition-colors ${showHiragana ? 'bg-success/20 text-success border-success' : 'bg-background text-gray-600 border-border'}`}
-          >
-            KANA
-          </button>
-          <button
-            onClick={() => setShowRomaji(!showRomaji)}
-            className={`text-[10px] sm:text-sm px-1.5 sm:px-2 py-0.5 sm:py-1 border transition-colors ${showRomaji ? 'bg-secondary/20 text-secondary border-secondary' : 'bg-background text-gray-600 border-border'}`}
-          >
-            ABC
-          </button>
-          <button
-            onClick={() => setShowTranslation(!showTranslation)}
-            className={`text-[10px] sm:text-sm px-1.5 sm:px-2 py-0.5 sm:py-1 border transition-colors ${showTranslation ? 'bg-purple-500/20 text-purple-400 border-purple-500' : 'bg-background text-gray-600 border-border'}`}
-          >
-            PT
-          </button>
+        </div>
+        <div className="flex gap-1 font-pixel">
+          {[
+            { key: 'kana', state: showHiragana, set: setShowHiragana, color: 'emerald' },
+            { key: 'abc', state: showRomaji, set: setShowRomaji, color: 'cyan' },
+            { key: 'pt', state: showTranslation, set: setShowTranslation, color: 'purple' },
+          ].map(({ key, state, set, color }) => (
+            <button
+              key={key}
+              onClick={() => set(!state)}
+              className={`text-[9px] sm:text-[10px] px-1.5 py-0.5 border transition-all uppercase ${
+                state
+                  ? `bg-${color}-500/20 text-${color}-400 border-${color}-500/50`
+                  : 'bg-black text-gray-700 border-gray-800'
+              }`}
+            >
+              {key}
+            </button>
+          ))}
         </div>
       </div>
 
       {/* KANJI (Always visible) */}
-      <p className="text-xl sm:text-4xl font-sans font-black text-white mb-2 sm:mb-4 leading-snug sm:leading-relaxed tracking-wide drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">
+      <p className="text-xl sm:text-3xl font-sans font-black text-white mb-3 leading-snug tracking-wide drop-shadow-[0_0_8px_rgba(255,255,255,0.3)] relative z-10">
         {line.kanji}
       </p>
 
       {/* Layers */}
-      <div className="space-y-1.5 sm:space-y-2 mb-2 sm:mb-4 bg-black/50 p-2 sm:p-4 border border-white/10 font-sans">
+      <div className="space-y-1 mb-3 bg-black/60 border border-gray-900 p-3 font-sans relative z-10">
         {showHiragana && (
-          <p className="text-sm sm:text-xl font-bold text-success leading-relaxed flex items-center gap-1 sm:gap-2">
-            <span className="text-gray-600 text-[10px] sm:text-sm select-none font-pixel shrink-0">{">"}KANA:</span> {line.hiragana}
+          <p className="text-sm sm:text-lg font-bold text-emerald-400 leading-relaxed flex items-center gap-2">
+            <span className="text-gray-700 text-[10px] font-mono shrink-0">KANA</span> {line.hiragana}
           </p>
         )}
         {showRomaji && (
-          <p className="text-sm sm:text-lg font-semibold text-secondary flex items-center gap-1 sm:gap-2">
-            <span className="text-gray-600 text-[10px] sm:text-sm select-none font-pixel shrink-0">{">"}ROM:</span> {line.romaji}
+          <p className="text-sm sm:text-base font-semibold text-cyan-400 flex items-center gap-2">
+            <span className="text-gray-700 text-[10px] font-mono shrink-0">ROM.</span> {line.romaji}
           </p>
         )}
         {showTranslation && (
-          <p className="text-xs sm:text-sm font-medium text-gray-400 flex items-start gap-1 sm:gap-2">
-            <span className="text-gray-600 text-[10px] sm:text-sm select-none font-pixel mt-0.5 shrink-0">{">"}PT:</span> {line.translation}
+          <p className="text-xs sm:text-sm font-medium text-gray-500 flex items-start gap-2">
+            <span className="text-gray-700 text-[10px] font-mono mt-0.5 shrink-0">PT</span> {line.translation}
           </p>
         )}
       </div>
 
-      {/* Master Notes Toggle */}
+      {/* Sensei Notes Toggle */}
       {!line.isEnglish && (
         <button
           onClick={() => setShowNotes(!showNotes)}
-          className="w-full flex items-center justify-between bg-[#111] border border-border sm:border-2 px-2 py-1.5 sm:px-4 sm:py-3 text-xs font-pixel text-primary hover:text-white hover:bg-primary/20 hover:border-primary transition-colors"
+          className="w-full flex items-center justify-between bg-black border border-gray-800 px-3 py-2 text-xs font-mono text-pink-600 hover:text-pink-400 hover:bg-pink-950/20 hover:border-pink-800/50 transition-colors relative z-10"
         >
-          <span className="flex items-center gap-1.5 text-xs sm:text-base">
-            <Terminal className="w-3 h-3 sm:w-5 sm:h-5" />
-            {showNotes ? 'HIDE' : 'SENSEI'}
+          <span className="flex items-center gap-1.5">
+            <Terminal className="w-3 h-3" />
+            {showNotes ? '> HIDE_DATA' : '> DECRYPT_SENSEI_NOTES'}
           </span>
-          {showNotes ? <ChevronUp className="w-3 h-3 sm:w-5 sm:h-5" /> : <ChevronDown className="w-3 h-3 sm:w-5 sm:h-5" />}
+          {showNotes ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
         </button>
       )}
 
       {showNotes && !line.isEnglish && (
-        <div className="mt-3 bg-primary/10 border-2 border-primary/50 p-4 text-sm text-primary-dark font-sans leading-relaxed shadow-inner">
-          <p className="font-pixel text-primary text-lg uppercase tracking-wider mb-2 flex items-center gap-2 drop-shadow-[0_0_5px_rgba(255,140,0,0.5)]">
-            <Terminal className="w-4 h-4" /> DECRYPTED DATA
+        <div className="mt-2 bg-pink-950/20 border border-pink-800/40 p-3 text-sm text-pink-200/80 font-sans leading-relaxed relative z-10">
+          <p className="font-mono text-pink-500 text-[10px] uppercase tracking-wider mb-2 flex items-center gap-1">
+            <Terminal className="w-3 h-3" /> DECRYPTED DATA
           </p>
-          <p className="whitespace-pre-wrap font-medium">{line.notes}</p>
+          <p className="whitespace-pre-wrap">{line.notes}</p>
         </div>
       )}
     </div>
@@ -108,74 +125,86 @@ export default function JPopPlayerPage({ params }: { params: { id: string } }) {
   const song = JPOP_SONGS.find(s => s.id === params.id) || JPOP_SONGS[0];
 
   return (
-    <div className="min-h-screen w-full bg-background text-foreground flex flex-col items-center select-none pb-20 sm:pb-24 font-sans relative z-10">
-      
-      {/* HEADER ARCADE */}
-      <div className="w-full h-12 sm:h-16 bg-surface border-b border-border flex items-center px-3 sm:px-8 top-0 sticky z-40 shadow-md">
-        <Link href="/jpop" className="flex items-center hover:opacity-70 transition-opacity mr-2 sm:mr-4 text-primary">
-           <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+    <div className="min-h-screen w-full bg-[#08000d] text-foreground flex flex-col items-center select-none pb-20 font-mono relative overflow-hidden">
+      <KaraokeCRT />
+
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-b from-pink-950/10 via-transparent to-purple-950/10 pointer-events-none" />
+
+      {/* ── HEADER ── */}
+      <div className="w-full h-12 sm:h-14 bg-black/90 border-b border-pink-900/30 flex items-center px-3 sm:px-8 top-0 sticky z-40">
+        <Link href="/jpop" className="flex items-center hover:text-pink-400 transition-colors mr-3 text-gray-500">
+          <ChevronLeft className="w-5 h-5" />
         </Link>
-        <div className="flex items-center min-w-0">
-          <h1 className="text-lg sm:text-2xl font-pixel text-primary uppercase mr-2 sm:mr-4 drop-shadow-[0_0_5px_rgba(255,140,0,0.8)] shrink-0">
-            RC2
-          </h1>
-          <div className="w-px h-4 sm:h-6 bg-border mx-1 sm:mx-2 shrink-0"></div>
-          <span className="text-[10px] sm:text-sm font-pixel text-secondary uppercase tracking-wider sm:tracking-widest mt-0.5 truncate">
-            PLAYER
-          </span>
+        <div className="flex items-center gap-2 flex-1 min-w-0">
+          <Disc3 className="w-4 h-4 text-pink-600 animate-spin" style={{ animationDuration: '3s' }} />
+          <span className="font-pixel text-xs text-pink-600 uppercase tracking-widest">CYBER KARAOKE</span>
+        </div>
+        <div className="hidden sm:flex items-center gap-2 text-[10px] text-gray-700">
+          <Radio className="w-3 h-3 text-pink-700" />
+          <span>AUDIO LINKED</span>
         </div>
       </div>
 
       <div className="flex flex-col items-center pt-4 sm:pt-6 w-full max-w-4xl mx-auto px-3 sm:px-4 relative z-10">
-        
-        {/* Header */}
-        <div className="w-full mb-4 sm:mb-8 text-center space-y-2 sm:space-y-3">
-          <span className="inline-flex items-center gap-1.5 px-2 sm:px-4 py-0.5 sm:py-1 border sm:border-2 border-[#ff00ff] text-[#ff00ff] bg-[#ff00ff]/10 font-pixel text-xs sm:text-lg uppercase tracking-wider">
-            <Music className="w-3 h-3 sm:w-4 sm:h-4" /> AUDIO LINKED
-          </span>
-          <h1 className="text-2xl sm:text-5xl font-pixel text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.8)] leading-tight">{song.title}</h1>
-          <p className="text-secondary font-pixel text-sm sm:text-xl uppercase tracking-wider sm:tracking-widest drop-shadow-[0_0_5px_rgba(0,210,255,0.5)]">{song.artist}</p>
-        </div>
 
-        {/* YouTube Player */}
-        <div className="w-full aspect-video border-2 sm:border-[6px] border-border shadow-[0_0_15px_rgba(0,210,255,0.1)] sm:shadow-[0_0_30px_rgba(0,210,255,0.2)] mb-4 sm:mb-10 relative bg-black">
-          <iframe 
-            src={`https://www.youtube.com/embed/${song.youtubeId}?rel=0`}
-            title="YouTube video player" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowFullScreen
-            className="w-full h-full relative z-0"
-          ></iframe>
-        </div>
-
-        {/* Controls */}
-        <div className="w-full flex items-center bg-[#111] border border-border sm:border-2 p-2 sm:p-4 mb-4 sm:mb-8 gap-2 font-pixel shadow-[2px_2px_0_#000] sm:shadow-[4px_4px_0_#000]">
-          <Terminal className="w-4 h-4 sm:w-5 sm:h-5 text-success shrink-0" />
-          <p className="text-xs sm:text-lg text-gray-400">
-            Acompanhe os <span className="text-white">Kanjis</span> abaixo.
+        {/* ── Song Header ── */}
+        <div className="w-full mb-6 sm:mb-8 text-center space-y-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 border border-pink-700/40 bg-pink-950/20 text-pink-500 font-pixel text-[10px] uppercase tracking-widest">
+            <Music className="w-3 h-3" /> NOW PLAYING
+          </div>
+          <h1 className="text-2xl sm:text-4xl font-pixel text-white drop-shadow-[0_0_15px_rgba(255,0,128,0.5)] leading-tight">
+            {song.title}
+          </h1>
+          <p className="text-cyan-400 font-pixel text-sm sm:text-base uppercase tracking-[0.2em] drop-shadow-[0_0_8px_rgba(0,210,255,0.4)]">
+            {song.artist}
           </p>
         </div>
 
-        {/* Lyrics List */}
-        <div className="w-full space-y-3 sm:space-y-6">
+        {/* ── YouTube Player ── */}
+        <div className="w-full aspect-video border-2 border-pink-900/40 shadow-[0_0_30px_rgba(255,0,128,0.1)] mb-6 sm:mb-8 relative bg-black overflow-hidden">
+          <iframe
+            src={`https://www.youtube.com/embed/${song.youtubeId}?rel=0`}
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="w-full h-full relative z-0"
+          />
+        </div>
+
+        {/* ── Instructions ── */}
+        <div className="w-full flex items-center bg-black/80 border border-gray-800 p-3 mb-6 gap-2 font-mono text-xs">
+          <Terminal className="w-4 h-4 text-pink-600 shrink-0" />
+          <p className="text-gray-500">
+            Acompanhe os <span className="text-white">Kanjis</span> abaixo. Toggle os layers de <span className="text-emerald-400">KANA</span>, <span className="text-cyan-400">ROM</span> e <span className="text-purple-400">PT</span>.
+          </p>
+        </div>
+
+        {/* ── Lyrics List ── */}
+        <div className="w-full space-y-2 sm:space-y-3">
           {song.lyrics.map((line) => (
             <LyricLineCard key={line.id} line={line} />
           ))}
         </div>
 
-        {/* Footer CTA */}
-        <div className="w-full mt-8 sm:mt-16 mb-4 sm:mb-8 bg-surface-dark border-2 sm:border-4 border-success p-4 sm:p-8 text-center shadow-[0_0_20px_rgba(57,255,20,0.2)] relative">
-          <Sparkles className="w-8 h-8 sm:w-12 sm:h-12 text-success mx-auto mb-2 sm:mb-4 drop-shadow-[0_0_10px_rgba(57,255,20,0.8)]" />
-          <h3 className="text-xl sm:text-3xl font-pixel text-white mb-1 sm:mb-2 uppercase">TREINO CONCLUÍDO!</h3>
-          <p className="text-gray-400 font-sans text-xs sm:text-base mb-4 sm:mb-6">
-            Você decodificou {song.lyrics.length} blocos de dados.
-          </p>
-          <Link
-            href="/jpop"
-            className="inline-block bg-success text-[#000] font-pixel text-base sm:text-2xl py-2 sm:py-3 px-6 sm:px-10 uppercase tracking-wider sm:tracking-widest border-2 border-white shadow-[2px_2px_0_#000] sm:shadow-[4px_4px_0_#000] active:translate-y-1 active:shadow-none transition-all hover:brightness-110"
-          >
-            JUKEBOX
-          </Link>
+        {/* ── Footer CTA ── */}
+        <div className="w-full mt-8 sm:mt-12 mb-4 bg-black/80 border border-emerald-800/50 p-6 sm:p-8 text-center relative overflow-hidden">
+          <KaraokeCRT />
+          <div className="relative z-10">
+            <Sparkles className="w-8 h-8 text-emerald-400 mx-auto mb-3 drop-shadow-[0_0_10px_rgba(0,255,100,0.6)]" />
+            <h3 className="text-xl sm:text-2xl font-pixel text-emerald-400 mb-1 uppercase tracking-wider">
+              DECODE COMPLETE
+            </h3>
+            <p className="text-gray-500 text-xs sm:text-sm mb-4 font-mono">
+              &gt; {song.lyrics.length} data blocks decrypted successfully
+            </p>
+            <Link
+              href="/jpop"
+              className="inline-block bg-pink-700 hover:bg-pink-600 text-white font-pixel text-sm sm:text-base py-2 px-6 uppercase tracking-widest border border-pink-400/50 shadow-[0_0_15px_rgba(255,0,128,0.3)] hover:shadow-[0_0_25px_rgba(255,0,128,0.5)] active:scale-95 transition-all"
+            >
+              ♪ JUKEBOX ♪
+            </Link>
+          </div>
         </div>
 
       </div>
