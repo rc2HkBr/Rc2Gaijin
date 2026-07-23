@@ -14,15 +14,18 @@ model User {
   id          String           @id @default(uuid())
   name        String?
   savedWords  UserSavedWord[]
+  bookings    Booking[]
   createdAt   DateTime         @default(now())
 }
 
 model Teacher {
   id          String     @id @default(uuid())
   name        String
+  bio         String?
   specialty   String
   price       Float      @default(60.0)
   imageUrl    String?
+  mpAccountId String?    // Mercado Pago Account ID para o Split
   schedules   Schedule[]
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
@@ -42,6 +45,7 @@ model Booking {
   scheduleId String
   schedule   Schedule @relation(fields: [scheduleId], references: [id])
   studentId  String
+  student    User     @relation(fields: [studentId], references: [id])
   paymentId  String?
   status     String   @default("PENDING")
   meetLink   String?
