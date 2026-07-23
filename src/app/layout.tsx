@@ -4,6 +4,7 @@ import "./globals.css";
 import Sidebar from "@/components/Sidebar";
 import BottomBar from "@/components/BottomBar";
 import { GameProvider } from "@/context/GameContext";
+import SplashScreen from "@/components/SplashScreen";
 
 const quicksand = Quicksand({
   variable: "--font-quicksand",
@@ -32,6 +33,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${quicksand.variable} ${vt323.variable} font-sans antialiased bg-black p-0 sm:p-6 overflow-hidden h-screen w-screen flex`}>
+        
+        {/* Tela de Inicialização (Marca do Criador) */}
+        <SplashScreen />
+
         {/* Carcaça do Monitor (Fliperama) */}
         <div className="flex-1 h-full sm:rounded-3xl border-[16px] border-[#1a1a1a] shadow-[0_0_50px_rgba(0,210,255,0.2)] bg-background relative overflow-hidden flex flex-col sm:flex-row">
           {/* Efeito da Tela de Tubo */}

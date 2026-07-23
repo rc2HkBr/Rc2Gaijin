@@ -62,3 +62,8 @@ body {
   background: #2a3541;
   border-left: 2px solid #00d2ff;
 }
+
+@keyframes scale-x {
+  0% { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
