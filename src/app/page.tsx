@@ -345,40 +345,63 @@ export default function Home() {
       </Link>
 
       {/* ══════════════════════════════════════════
-          6. BANNER ALERTA DE CHEFE (VERMELHO COM FOTO DO BOSS)
+          6. BOSS EVENT — SHOGUN RAIJIN (KATSUHIRO OTOMO STYLE)
          ══════════════════════════════════════════ */}
       <Link 
-        href="/boss/memory-ghost" 
-        className="w-full bg-gradient-to-r from-[#2a0808] to-[#170404] border-2 border-red-500 rounded-3xl p-5 relative overflow-hidden group transition-all shadow-[0_0_30px_rgba(239,68,68,0.3)] hover:scale-[1.01]"
+        href="/boss/shogun-raijin" 
+        className="w-full bg-gradient-to-r from-[#031424] to-[#082038] border-2 border-cyan-400 rounded-3xl p-5 relative overflow-hidden group transition-all shadow-[0_0_30px_rgba(6,182,212,0.3)] hover:scale-[1.01]"
       >
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 relative z-10">
           <div className="flex items-center gap-4 text-center sm:text-left">
-            {/* Foto/Ícone do Chefe */}
-            <div className="w-16 h-16 rounded-2xl bg-black border-2 border-red-500 flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(239,68,68,0.6)] overflow-hidden">
+            {/* Foto Akira Style do Shogun */}
+            <div className="w-16 h-16 rounded-2xl bg-black border-2 border-cyan-400 flex items-center justify-center shrink-0 shadow-[0_0_20px_rgba(6,182,212,0.6)] overflow-hidden">
               <img 
-                src="/images/boss/ghost.png" 
-                alt="Boss" 
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  // Fallback se não houver foto
-                  (e.target as HTMLElement).style.display = 'none';
-                }}
+                src="/images/boss/shogun.png" 
+                alt="Shogun Raijin" 
+                className="w-full h-full object-cover object-top group-hover:scale-110 transition-transform"
               />
-              <Skull className="w-8 h-8 text-red-500 animate-pulse" />
             </div>
 
             <div>
-              <div className="inline-flex items-center gap-1.5 bg-red-950 border border-red-500/50 text-red-300 text-xs font-black uppercase px-2.5 py-0.5 rounded-md mb-1">
-                <AlertTriangle className="w-3.5 h-3.5 text-red-400" /> 
-                <span className="animate-pulse">BOSS DETECTADO!</span>
+              <div className="inline-flex items-center gap-1.5 bg-cyan-950 border border-cyan-500/50 text-cyan-300 text-xs font-black uppercase px-2.5 py-0.5 rounded-md mb-1">
+                <Zap className="w-3.5 h-3.5 text-cyan-400 animate-pulse" /> 
+                <span className="animate-pulse">EVENTO TEMPORÁRIO DE FIM DE SEMANA!</span>
               </div>
-              <h3 className="text-xl font-black text-white">O Fantasma da Memória</h3>
-              <p className="text-xs sm:text-sm text-gray-300 font-medium">Batalha de velocidade — Teste seus reflexos em Hiragana</p>
+              <h3 className="text-xl font-black text-white">Shogun da Tempestade (Raijin)</h3>
+              <p className="text-xs sm:text-sm text-cyan-200/90 font-medium">Batalha Estilo Akira — Chuva intensa e relâmpagos ao vivo!</p>
             </div>
           </div>
 
-          <button className="bg-red-600 hover:bg-red-500 text-white font-extrabold text-sm px-6 py-3 rounded-2xl transition-all group-hover:scale-105 shrink-0 uppercase tracking-wider flex items-center gap-2 border border-red-400 shadow-[0_0_20px_rgba(239,68,68,0.8)]">
-            ⚔ DESAFIAR CHEFE
+          <button className="bg-cyan-400 hover:bg-cyan-300 text-black font-extrabold text-sm px-6 py-3 rounded-2xl transition-all group-hover:scale-105 shrink-0 uppercase tracking-wider shadow-[0_0_20px_rgba(6,182,212,0.6)] flex items-center gap-1">
+            ⚡ DESAFIAR SHOGUN
+          </button>
+        </div>
+      </Link>
+
+      {/* ══════════════════════════════════════════
+          7. BOSS WARNING BANNER (RED CRIMSON - FANTASMA DA MEMÓRIA)
+         ══════════════════════════════════════════ */}
+      <Link 
+        href="/boss/memory-ghost" 
+        className="w-full bg-gradient-to-r from-[#240606]/90 to-[#120303]/90 border border-red-600/70 hover:border-red-500 rounded-2xl p-4 sm:p-5 relative overflow-hidden group transition-all shadow-[0_0_25px_rgba(220,38,38,0.25)] hover:scale-[1.01]"
+      >
+        <div className="flex items-center justify-between gap-4 relative z-10">
+          <div className="flex items-center gap-3.5">
+            <div className="w-12 h-12 rounded-xl bg-red-950 border border-red-600 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(220,38,38,0.5)]">
+              <Skull className="w-7 h-7 text-red-500 animate-bounce" />
+            </div>
+            <div>
+              <div className="flex items-center gap-1.5 text-red-500 text-[10px] font-bold uppercase tracking-widest mb-0.5">
+                <AlertTriangle className="w-3.5 h-3.5" /> 
+                <span className="animate-pulse">⚠ BOSS DETECTED</span>
+              </div>
+              <h3 className="font-pixel text-lg sm:text-xl text-red-200">O Fantasma da Memória</h3>
+              <p className="text-gray-400 text-xs">Batalha de velocidade — teste seus reflexos de Hiragana</p>
+            </div>
+          </div>
+
+          <button className="bg-red-600 hover:bg-red-500 text-white font-pixel text-xs px-4 py-2.5 rounded-xl transition-all group-hover:scale-105 shrink-0 uppercase tracking-widest flex items-center gap-1 border border-red-400 shadow-[0_0_20px_rgba(220,38,38,0.6)]">
+            ⚔ BATTLE-READY ///
           </button>
         </div>
       </Link>
