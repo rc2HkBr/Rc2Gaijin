@@ -16,7 +16,7 @@ export const AVATARS: Avatar[] = [
     id: 'shinobi_sombras', 
     name: 'SHINOBI DAS SOMBRAS', 
     emoji: '🥷', 
-    imageUrl: '/images/origens/kanji.png', // Fallback temporário (depois alteraremos para a arte real)
+    imageUrl: '/images/avatars/shinobi.png', 
     price: 300,
     description: 'Um mestre furtivo. Aumenta a evasão contra armadilhas de gramática.'
   },
@@ -24,7 +24,7 @@ export const AVATARS: Avatar[] = [
     id: 'ronin_errante', 
     name: 'RONIN ERRANTE', 
     emoji: '⚔️', 
-    imageUrl: '/images/origens/katakana.png', // Fallback temporário
+    imageUrl: '/images/avatars/ronin.png', 
     price: 250,
     description: 'Um guerreiro sem mestre. Focado em força bruta para destruir Kanjis complexos.'
   },
@@ -32,7 +32,7 @@ export const AVATARS: Avatar[] = [
     id: 'gaijin_aco', 
     name: 'GAIJIN DE AÇO', 
     emoji: '🛡️', 
-    imageUrl: '/images/origens/hiragana.png', // Fallback temporário
+    imageUrl: '/images/avatars/gaijin.png', 
     price: 200,
     description: 'Estrangeiro equipado com armadura ocidental. Especialista em resistir a ataques longos.'
   },
@@ -40,7 +40,7 @@ export const AVATARS: Avatar[] = [
     id: 'onna_bugeisha', 
     name: 'ONNA-BUGEISHA', 
     emoji: '🌸', 
-    imageUrl: '', // Fica só o emoji enquanto a imagem não gera
+    imageUrl: '/images/avatars/onna.png', 
     price: 250,
     description: 'Guerreira nobre com naginata. Velocidade implacável na leitura de Katakana.'
   }

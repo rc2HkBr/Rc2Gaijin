@@ -168,7 +168,9 @@ export default function MemoryGhostBossPage() {
       <div className="min-h-screen w-full bg-[#0a0510] text-foreground flex flex-col items-center justify-center p-6 relative overflow-hidden font-sans">
         <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 to-black pointer-events-none"></div>
         <div className="relative z-10 text-center max-w-xl bg-[#110a1f] p-8 border-4 border-purple-800 shadow-[0_0_30px_rgba(128,0,128,0.5)]">
-          <Ghost className="w-24 h-24 text-purple-500 mx-auto mb-6 animate-bounce drop-shadow-[0_0_15px_rgba(128,0,128,0.8)]" />
+          <div className="w-32 h-32 mx-auto mb-6 relative shadow-[0_0_15px_rgba(128,0,128,0.8)] border-2 border-purple-500 overflow-hidden rounded-full animate-bounce">
+            <img src="/images/boss/ghost.png" alt="O Fantasma da Memória" className="w-full h-full object-cover" style={{ imageRendering: 'pixelated' }} />
+          </div>
           <h1 className="text-4xl font-pixel text-purple-400 mb-2 uppercase drop-shadow-[2px_2px_0_#000]">O Fantasma da Memória</h1>
           <p className="text-gray-300 font-bold mb-6 text-sm uppercase tracking-widest border-b-2 border-purple-900/50 pb-4">Boss Battle: Speed Run</p>
           
@@ -300,7 +302,9 @@ export default function MemoryGhostBossPage() {
         
         {/* Boss Character / Title */}
         <div className="mb-8 text-center animate-pulse">
-          <Ghost className={`w-20 h-20 mx-auto mb-4 drop-shadow-[0_0_20px_rgba(128,0,128,0.8)] ${isUltimate ? 'text-red-500' : 'text-purple-500'}`} />
+          <div className={`w-20 h-20 mx-auto mb-4 relative shadow-[0_0_20px_rgba(128,0,128,0.8)] border-2 ${isUltimate ? 'border-red-500' : 'border-purple-500'} overflow-hidden rounded-full`}>
+            <img src="/images/boss/ghost.png" alt="Ghost" className="w-full h-full object-cover" style={{ imageRendering: 'pixelated' }} />
+          </div>
           <h2 className={`font-pixel text-xl sm:text-2xl uppercase tracking-widest ${isUltimate ? 'text-red-400' : 'text-purple-300'}`}>
             {isUltimate ? BOSS_DATA.ultimate.title : currentRound.title}
           </h2>
