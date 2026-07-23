@@ -105,8 +105,7 @@ function LyricLineCard({ line }: { line: JPopLyricLine }) {
 }
 
 export default function JPopPlayerPage({ params }: { params: { id: string } }) {
-  const songId = parseInt(params.id);
-  const song = JPOP_SONGS.find(s => s.id === songId) || JPOP_SONGS[0];
+  const song = JPOP_SONGS.find(s => s.id === params.id) || JPOP_SONGS[0];
 
   return (
     <div className="min-h-screen w-full bg-background text-foreground flex flex-col items-center select-none pb-24 font-sans relative z-10">

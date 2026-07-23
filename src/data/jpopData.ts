@@ -109,5 +109,69 @@ export const JPOP_SONGS: JPopSong[] = [
         isChorus: true
       }
     ]
+  },
+  {
+    id: "plastic-love",
+    title: "Plastic Love",
+    titleRomaji: "Plastic Love",
+    artist: "Mariya Takeuchi (竹内まりや)",
+    youtubeId: "3bNITQR4Uso",
+    difficulty: "Avançado",
+    coverEmoji: "💖",
+    lyrics: [
+      {
+        id: 1,
+        kanji: "突然のキスや 熱いまなざしで",
+        hiragana: "とつぜんのキスや あついまなざしで",
+        romaji: "Totsuzen no kisu ya atsui manazashi de",
+        translation: "Com beijos repentinos e olhares intensos",
+        notes: "【突然 (とつぜん)】= Repentino/De repente. 【キス】= Beijo (do inglês 'kiss'). 【熱い (あつい)】= Quente/Intenso. 【まなざし (眼差し)】= Olhar fixo/Olhar."
+      },
+      {
+        id: 2,
+        kanji: "恋のプログラムを 狂わせないでね",
+        hiragana: "こいのプログラムを くるわせないでね",
+        romaji: "Koi no puroguramu wo kuruwase nai de ne",
+        translation: "Não bagunce o programa do amor, certo?",
+        notes: "【恋 (こい)】= Amor/Paixão. 【プログラム】= Programa (do inglês). 【狂わせる (くるわせる)】= Enlouquecer/Bagunçar. 【〜ないで】= Não faça (pedido negativo)."
+      },
+      {
+        id: 3,
+        kanji: "出逢いと別れ 上手に打ち明ける",
+        hiragana: "であいとわかれ じょうずにうちあける",
+        romaji: "Deai to wakare jouzu ni uchiakeru",
+        translation: "Encontros e despedidas, habilmente revelados",
+        notes: "【出逢い (であい)】= Encontro. 【別れ (わかれ)】= Separação/Despedida. 【上手に (じょうずに)】= Habilmente. 【打ち明ける (うちあける)】= Revelar/Confessar."
+      },
+      {
+        id: 4,
+        kanji: "I'm just playing games",
+        hiragana: "I'm just playing games",
+        romaji: "I'm just playing games",
+        translation: "Eu estou apenas jogando jogos",
+        notes: "Frase em inglês dentro da música. Mostra a mistura cultural do J-Pop dos anos 80.",
+        isEnglish: true
+      },
+      {
+        id: 5,
+        kanji: "I know that's plastic love",
+        hiragana: "I know that's plastic love",
+        romaji: "I know that's plastic love",
+        translation: "Eu sei que isso é amor de plástico",
+        notes: "O refrão em inglês. 'Plastic Love' = Amor Artificial/Superficial. Uma metáfora sobre proteger o coração fingindo não se importar.",
+        isChorus: true,
+        isEnglish: true
+      },
+      {
+        id: 6,
+        kanji: "Dance with me 今夜は",
+        hiragana: "Dance with me こんやは",
+        romaji: "Dance with me konya wa",
+        translation: "Dance comigo esta noite",
+        notes: "【今夜 (こんや)】= Esta noite. Mistura de inglês e japonês muito comum no City Pop dos anos 80.",
+        isChorus: true,
+        isEnglish: true
+      }
+    ]
   }
 ];
