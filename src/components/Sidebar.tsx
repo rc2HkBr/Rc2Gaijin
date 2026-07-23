@@ -16,7 +16,7 @@ export default function Sidebar() {
     { name: "SHURIKEN SHOP", href: "/shop", icon: <ShoppingBag className="w-5 h-5" /> },
     { name: "NINGU ARSENAL", href: "/trilha", icon: <Swords className="w-5 h-5" /> },
     { name: "CYBER KARAOKE", href: "/jpop", icon: <Music className="w-5 h-5" /> },
-    { name: "CYBER BLOG", href: "/", icon: <BookOpen className="w-5 h-5" /> },
+    { name: "NIHONGO HISTORIA", href: "/origens", icon: <BookOpen className="w-5 h-5" /> },
   ];
 
   return (
