@@ -75,6 +75,9 @@ export default function PerfilPage() {
   const router = useRouter();
   const [sysTime, setSysTime] = useState('');
   const [booted, setBooted] = useState(false);
+  
+  const [bookings, setBookings] = useState<any[]>([]);
+  const [loadingBookings, setLoadingBookings] = useState(true);
 
   useEffect(() => {
     const tick = () => {
@@ -89,6 +92,23 @@ export default function PerfilPage() {
   useEffect(() => {
     const t = setTimeout(() => setBooted(true), 600);
     return () => clearTimeout(t);
+  }, []);
+
+  useEffect(() => {
+    async function loadBookings() {
+      const email = localStorage.getItem('gaijin_student_email');
+      if (!email) {
+        setLoadingBookings(false);
+        return;
+      }
+      const { getStudentBookings } = await import('@/actions/aulas');
+      const res = await getStudentBookings(email);
+      if (res.success && res.data) {
+        setBookings(res.data);
+      }
+      setLoadingBookings(false);
+    }
+    loadBookings();
   }, []);
 
   const handleLogout = () => {
@@ -225,6 +245,53 @@ export default function PerfilPage() {
                 <div className="text-[9px] text-emerald-700 uppercase tracking-wider mt-1">{stat.label}</div>
               </div>
             ))}
+          </div>
+
+          {/* Separator */}
+          <div className="text-emerald-800/60 text-xs mb-4 text-center tracking-[0.3em]">
+            ════════ TRANSMISSÕES AGENDADAS ════════
+          </div>
+
+          <div className="mb-6 space-y-3 min-h-[60px]">
+            {loadingBookings ? (
+              <div className="text-center text-emerald-700 text-xs animate-pulse">Consultando rede neural...</div>
+            ) : bookings.length === 0 ? (
+              <div className="border border-dashed border-emerald-900/50 bg-black/30 p-4 text-center text-emerald-800 text-[10px] uppercase">
+                Nenhuma transmissão ao vivo agendada.
+              </div>
+            ) : (
+              bookings.map((booking: any) => {
+                const dateObj = new Date(booking.schedule.date);
+                const isConfirmed = booking.status === 'CONFIRMED';
+                return (
+                  <div key={booking.id} className="border border-emerald-800/50 bg-[#0a140a] p-3 flex flex-col sm:flex-row justify-between sm:items-center gap-3">
+                    <div>
+                      <div className="text-emerald-300 text-xs font-bold flex items-center gap-2 mb-1">
+                        <span className="text-emerald-500">[{dateObj.toLocaleDateString('pt-BR')}]</span> 
+                        {dateObj.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+                        <span className={`text-[9px] px-1 ml-2 ${isConfirmed ? 'bg-emerald-900 text-emerald-300' : 'bg-yellow-900 text-yellow-500'}`}>
+                          {booking.status}
+                        </span>
+                      </div>
+                      <div className="text-[10px] text-emerald-600 uppercase">
+                        SENSEI: {booking.schedule.teacher.name}
+                      </div>
+                    </div>
+                    <div>
+                      {isConfirmed ? (
+                        <a href={booking.meetLink || '#'} target="_blank" rel="noopener noreferrer" className="border border-emerald-500 text-emerald-400 text-[10px] uppercase px-3 py-1.5 hover:bg-emerald-900/50 block text-center sm:inline-block">
+                          &gt; INICIAR_LINK
+                        </a>
+                      ) : (
+                        <span className="border border-emerald-900/50 text-emerald-800 text-[10px] uppercase px-3 py-1.5 block text-center sm:inline-block">
+                          Aguardando Pagamento
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                );
+              })
+            )}
           </div>
 
           {/* Separator */}
