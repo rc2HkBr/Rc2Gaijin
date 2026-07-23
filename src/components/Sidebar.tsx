@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Home, BookOpen, Grid, Trophy, User, Settings, Heart, Flame, Coins, Swords, Mountain, Music, ShoppingBag } from 'lucide-react';
+import { Home, BookOpen, Grid, Trophy, User, Settings, Heart, Flame, Coins, Swords, Mountain, Music, ShoppingBag, Video } from 'lucide-react';
 import HiraganaChartModal from '@/components/HiraganaChartModal';
 import { useGame } from '@/context/GameContext';
 
