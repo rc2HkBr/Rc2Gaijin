@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Quicksand } from "next/font/google";
+import { Quicksand, VT323 } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/Sidebar";
 import BottomBar from "@/components/BottomBar";
@@ -9,6 +9,12 @@ const quicksand = Quicksand({
   variable: "--font-quicksand",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
+});
+
+const vt323 = VT323({
+  variable: "--font-vt323",
+  weight: "400",
+  subsets: ["latin"],
 });
 
 
@@ -25,16 +31,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${quicksand.variable} font-sans antialiased relative`}>
-        <GameProvider>
-          <div className="flex h-screen w-full flex-col sm:flex-row overflow-hidden bg-background">
+      <body className={`${quicksand.variable} ${vt323.variable} font-sans antialiased bg-black p-0 sm:p-6 overflow-hidden`}>
+        {/* Carcaça do Monitor (Fliperama) */}
+        <div className="w-full h-full sm:rounded-3xl border-[16px] border-[#1a1a1a] shadow-[0_0_50px_rgba(0,210,255,0.2)] bg-background relative overflow-hidden flex flex-col sm:flex-row">
+          {/* Efeito da Tela de Tubo */}
+          <div className="scanlines absolute inset-0 rounded-2xl"></div>
+
+          <GameProvider>
             <Sidebar />
-            <main className="flex-1 overflow-y-auto pb-20 sm:pb-0 relative">
+            <main className="flex-1 overflow-y-auto pb-20 sm:pb-0 relative z-10">
               {children}
             </main>
             <BottomBar />
-          </div>
-        </GameProvider>
+          </GameProvider>
+        </div>
       </body>
     </html>
   );

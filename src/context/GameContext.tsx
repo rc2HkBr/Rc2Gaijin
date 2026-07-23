@@ -11,54 +11,56 @@ export interface Avatar {
   description: string;
 }
 
-// Transformamos a lista de Avatares no "Dojo Clássico"
+// Itens da Loja Cyber-Ninja Arcade
 export const AVATARS: Avatar[] = [
   { 
-    id: 'ninja_classico', 
-    name: 'Ninja Tradicional', 
-    emoji: '🥷', 
-    imageUrl: '/images/shop/ninja_classico.png',
+    id: 'kitsune_drone', 
+    name: 'KITSUNE DRONE V2', 
+    emoji: '🦊', 
+    imageUrl: '/images/shop/kitsune_drone.png',
     price: 150,
-    description: 'Um mestre nas artes da furtividade e infiltração.'
+    description: 'Kitsune Drone - Um drone de vigilância tático e furtivo com câmera de alta resolução.'
   },
   { 
-    id: 'samurai_honrado', 
-    name: 'Samurai Honrado', 
-    emoji: '🗡️', 
-    imageUrl: '/images/shop/samurai_honrado.png',
+    id: 'mecha_shuriken', 
+    name: 'MECHA SHURIKEN X-1', 
+    emoji: '⚙️', 
+    imageUrl: '/images/shop/mecha_shuriken.png',
     price: 130,
-    description: 'Guerreiro nobre treinado no caminho da espada e da disciplina.'
+    description: 'Mecha Shuriken - Um shuriken autônomo com múltiplos modos de ataque e rastreamento.'
   },
   { 
-    id: 'lutadora_karate', 
-    name: 'Mestra de Karate', 
-    emoji: '🥋', 
-    imageUrl: '/images/shop/lutadora_karate.png',
+    id: 'cyber_kunai', 
+    name: 'CYBER KUNAI REMOTE', 
+    emoji: '🔪', 
+    imageUrl: '/images/shop/cyber_kunai.png',
     price: 150,
-    description: 'Especialista em combate corpo a corpo e golpes de alto impacto.'
+    description: 'Cyber Kunai Remote - Um dispositivo de controle remoto versátil para controlar drones e mechas à distância.'
   },
   { 
-    id: 'shuriken_aco', 
-    name: 'Shuriken de Aço', 
-    emoji: '❄️', 
-    imageUrl: '/images/shop/shuriken_aco.png',
+    id: 'onimaru_mech', 
+    name: 'ONIMARU BATTLE MECH', 
+    emoji: '🤖', 
+    imageUrl: '/images/shop/onimaru_mech.png',
     price: 130,
-    description: 'Arma de arremesso clássica, balanceada para precisão perfeita.'
+    description: 'Onimaru Battle Mech - Um mecha bípede pesado para combate direto e defesa.'
   },
   { 
-    id: 'pergaminho_sabedoria', 
-    name: 'Pergaminho Antigo', 
-    emoji: '📜', 
+    id: 'ninja_scroll', 
+    name: 'NINJA SCROLL UPGRADE KIT', 
+    emoji: '📜',
+    imageUrl: '/images/shop/ninja_scroll.png', 
     price: 130,
-    description: 'Contém técnicas ancestrais seladas há séculos.'
+    description: 'Ninja Scroll Upgrade - Um pergaminho de aprimoramento que desbloqueia novas habilidades.'
   },
   { 
-    id: 'mascara_oni', 
-    name: 'Máscara de Oni', 
-    emoji: '👹', 
+    id: 'shinobi_cam', 
+    name: 'SHINOBI CAM SYSTEM', 
+    emoji: '📹', 
+    imageUrl: '/images/shop/shinobi_cam.png',
     price: 130,
-    description: 'Artefato que intimida inimigos e protege o usuário.'
-  },
+    description: 'Shinobi Cam - Um sistema de câmera avançado para reconhecimento e coleta de informações.'
+  }
 ];
 
 interface GameContextProps {

@@ -1,46 +1,64 @@
 @import "tailwindcss";
 
 :root {
-  /* Dojo Moderno / Duolingo-style theme */
-  --background: #f7f9fa; /* Off-white for background */
-  --foreground: #4B4B4B; /* Gray Text for readability */
+  /* Fundo da mesa / ambiente escuro */
+  --background: #111418;
+  --foreground: #66b2b2;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   
-  --color-primary: #FF4B4B; /* Crimson Red */
-  --color-primary-dark: #CC3C3C;
+  --color-primary: #ff8c00; /* Laranja Neon para Logo e Botões */
+  --color-primary-dark: #d67500;
   
-  --color-secondary: #1CB0F6; /* Blue for highlights/links */
-  --color-secondary-dark: #1899D6;
+  --color-secondary: #00d2ff; /* Azul Neon para títulos e UI */
+  --color-secondary-dark: #00a8cc;
   
-  --color-success: #58CC02; /* Bamboo Green */
-  --color-success-dark: #4BB200;
+  --color-success: #39ff14; /* Verde Terminal */
   
-  --color-surface: #ffffff; /* White panels */
-  --color-border: #E5E5E5; /* Light gray borders */
-  
-  --color-gold: #FFC800; /* Gold */
+  --color-surface: #1e252d; /* Fundo dos painéis CRT */
+  --color-surface-dark: #161c22;
+  --color-border: #2a3541; /* Bordas dos circuitos */
   
   --font-sans: var(--font-quicksand), var(--font-geist-sans);
-}
-
-@media (prefers-color-scheme: dark) {
-  /* Forcing light mode for gamified look, or we can keep a nice dark variant */
-  :root {
-    --background: #131f24;
-    --foreground: #ffffff;
-  }
-  @theme inline {
-    --color-surface: #202f36;
-    --color-border: #37464f;
-  }
+  --font-pixel: var(--font-vt323), monospace;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), sans-serif;
+}
+
+/* Efeito Scanlines CRT e Curvatura (Vignette) */
+.scanlines {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%,
+    rgba(0, 0, 0, 0.25) 50%
+  );
+  background-size: 100% 4px;
+  z-index: 50;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* Efeito de sombra interna (Vignette) para simular borda de TV velha */
+  box-shadow: inset 0 0 100px rgba(0,0,0,0.9);
+}
+
+/* Scrollbar estilo Retro Tech */
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: #111418;
+  border-left: 2px solid #2a3541;
+}
+::-webkit-scrollbar-thumb {
+  background: #2a3541;
+  border-left: 2px solid #00d2ff;
 }

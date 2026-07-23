@@ -12,30 +12,31 @@ export default function Sidebar() {
   const { ryo, activeAvatar } = useGame();
 
   const navItems = [
-    { name: "Sua Jornada", href: "/", icon: <Home className="w-6 h-6" /> },
-    { name: "Treinamento", href: "/lesson?group=vowels", icon: <Swords className="w-6 h-6" /> },
-    { name: "Trilha do Mestre", href: "/trilha", icon: <Mountain className="w-6 h-6" /> },
-    { name: "J-Pop Karaoke", href: "/jpop", icon: <Music className="w-6 h-6" /> },
-    { name: "Loja do Ferreiro", href: "/shop", icon: <ShoppingBag className="w-6 h-6" /> },
+    { name: "HOME", href: "/", icon: <Home className="w-5 h-5" /> },
+    { name: "SHURIKEN SHOP", href: "/shop", icon: <ShoppingBag className="w-5 h-5" /> },
+    { name: "NINGU ARSENAL", href: "/trilha", icon: <Swords className="w-5 h-5" /> },
+    { name: "SUPPORT", href: "/", icon: <Settings className="w-5 h-5" /> },
+    { name: "CYBER BLOG", href: "/", icon: <BookOpen className="w-5 h-5" /> },
   ];
 
   return (
     <>
       <div className="hidden sm:flex flex-col w-64 border-r border-border bg-surface p-4 h-full shadow-sm z-10">
-        <div className="text-2xl font-black text-primary mb-6 px-4 mt-4 tracking-tight flex items-center gap-2">
-          Nihongo<span className="text-secondary">App</span>
+        <div className="text-3xl font-pixel text-primary mb-6 px-4 mt-4 tracking-tight flex flex-col gap-0 drop-shadow-[0_0_8px_rgba(255,140,0,0.8)]">
+          <span>GAIJIN RC2</span>
+          <span className="text-secondary text-lg">外人RC2</span>
         </div>
 
         {/* RPG HUD PANEL */}
-        <div className="bg-surface border-2 border-border rounded-2xl p-4 mb-6 mx-2 shadow-[0_4px_0_#E5E5E5]">
-          <div className="text-xs font-bold text-gray-text uppercase mb-3 flex items-center gap-2">
+        <div className="bg-[#15191e] border-2 border-border/50 rounded-xl p-4 mb-6 mx-2 shadow-inner">
+          <div className="text-xs font-pixel text-secondary uppercase mb-4 flex items-center gap-2 tracking-wider">
             {activeAvatar.imageUrl ? (
-              <img src={activeAvatar.imageUrl} alt="" className="w-8 h-8 rounded-full border-2 border-border object-cover" />
+              <img src={activeAvatar.imageUrl} alt="" className="w-10 h-10 rounded border border-primary object-contain bg-black" />
             ) : (
-              <span className="text-xl">{activeAvatar.emoji}</span>
+              <span className="text-2xl">{activeAvatar.emoji}</span>
             )}
-            <span className="truncate flex-1">{activeAvatar.name}</span>
-            <span className="text-primary bg-primary/10 px-2 py-0.5 rounded text-[10px]">Nv. 1</span>
+            <span className="truncate flex-1 text-primary drop-shadow-[0_0_5px_rgba(255,140,0,0.5)]">USER: {activeAvatar.name}</span>
+            <span className="text-success border border-success/30 bg-success/10 px-2 py-0.5 rounded text-[10px]">LV. 1</span>
           </div>
           
           <div className="flex flex-col gap-3">
@@ -76,57 +77,31 @@ export default function Sidebar() {
           </div>
         </div>
 
-        <nav className="flex-1 space-y-2">
-          {navItems.map((item, idx) => (
+        {/* NAV ITEMS */}
+        <nav className="flex-1 space-y-1.5 px-2">
+          {navItems.map((item) => (
             <Link
-              key={idx}
+              key={item.name}
               href={item.href}
-              className="flex items-center gap-4 px-4 py-3 rounded-2xl hover:bg-border/50 text-foreground font-bold text-base transition-colors group"
+              className="flex items-center gap-3 px-4 py-3 rounded-lg text-secondary font-pixel text-xl hover:bg-secondary/10 hover:text-primary transition-colors border border-transparent hover:border-secondary/30"
             >
-              <span className="text-gray-400 group-hover:text-primary transition-colors">{item.icon}</span>
-              {item.name}
+              {item.icon}
+              <span className="uppercase tracking-widest">{item.name}</span>
             </Link>
           ))}
-
-          <button
+          
+          <button 
             onClick={() => setIsChartOpen(true)}
-            className="w-full flex items-center gap-4 px-4 py-3 rounded-2xl hover:bg-border/50 text-foreground font-bold text-base transition-colors group text-left"
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-secondary font-pixel text-xl hover:bg-secondary/10 hover:text-primary transition-colors mt-4 border border-secondary/20"
           >
-            <span className="text-gray-400 group-hover:text-primary transition-colors">
-              <Grid className="w-6 h-6" />
-            </span>
-            Grimório (Hiragana)
+            <Grid className="w-5 h-5" />
+            <span className="uppercase tracking-widest">SYSTEM DATA</span>
           </button>
-
-          <Link
-            href="/ranking"
-            className="flex items-center gap-4 px-4 py-3 rounded-2xl hover:bg-border/50 text-foreground font-bold text-base transition-colors group"
-          >
-            <span className="text-gray-400 group-hover:text-primary transition-colors">
-              <Trophy className="w-6 h-6" />
-            </span>
-            Ranking Guilda
-          </Link>
-          <Link
-            href="/profile"
-            className="flex items-center gap-4 px-4 py-3 rounded-2xl hover:bg-border/50 text-foreground font-bold text-base transition-colors group"
-          >
-            <span className="text-gray-400 group-hover:text-primary transition-colors">
-              <User className="w-6 h-6" />
-            </span>
-            Perfil Ninja
-          </Link>
         </nav>
-        <div className="mt-auto">
-          <Link
-            href="#"
-            className="flex items-center gap-4 px-4 py-3 rounded-2xl hover:bg-border/50 text-foreground font-bold text-base transition-colors group"
-          >
-            <span className="text-gray-400 group-hover:text-primary transition-colors">
-              <Settings className="w-6 h-6" />
-            </span>
-            Equipamentos
-          </Link>
+        
+        <div className="mt-auto px-4 py-4 text-[10px] text-secondary/50 font-pixel tracking-widest uppercase text-center border-t border-border/30">
+          SYS.VER 2.0.4<br/>
+          CONNECTION ESTABLISHED
         </div>
       </div>
 
