@@ -38,7 +38,17 @@ Para garantir que você nunca mais esqueça os Kanas aprendidos, você utilizar�
   <li><strong class="text-white">Criação de Conta:</strong> Cadastre-se gratuitamente no <strong>AnkiWeb</strong> para salvar seu progresso na nuvem.</li>
   <li><strong class="text-white">Instalação:</strong> Instale o programa no seu computador ou celular e sincronize a conta.</li>
   <li><strong class="text-white">Prática:</strong> Adicione seus flashcards visuais e revise-os todos os dias. O algoritmo mostrará as letras no momento exato em que seu cérebro estiver prestes a esquecê-las.</li>
+</ol><br/>
+<strong class="text-primary uppercase text-lg">Hack Ninja: Foco no Kana (Kaishi 1.5k)</strong><br/>
+<p class="mt-2 text-gray-300">Para focar a sua revisão apenas no som e na leitura, você pode alterar o layout do seu deck Kaishi 1.5k usando o Anki no Computador:</p>
+<ol class="list-decimal pl-5 space-y-2 text-primary mt-2">
+  <li>Na tela inicial do Anki (PC), clique em <strong>Painel</strong> (Browse).</li>
+  <li>Selecione o deck Kaishi 1.5k na lateral esquerda e clique em qualquer carta.</li>
+  <li>Clique no botão <strong>Cartões...</strong> (Cards...) para abrir o Editor de Modelos.</li>
+  <li>Na caixa referente à Frente (Front Template), apague <code>{{Word}}</code> e coloque:<br/><code class="bg-black text-emerald-400 px-2 py-1 rounded inline-block mt-1">{{Word Furigana}}<br/>{{Word Audio}}</code></li>
+  <li>Mantenha o Verso (Back Template) com <code>{{Word Meaning}}</code> e <code>{{Picture}}</code> para conferir a resposta.</li>
 </ol>
+<p class="mt-2 italic text-gray-400">Assim, a frente da carta mostrará apenas o Hiragana e tocará o áudio! Quando avançar para os Kanjis, basta colocar o <code>{{Word}}</code> de volta.</p>
     `,
     emoji: "🧠",
     color: "bg-secondary",
