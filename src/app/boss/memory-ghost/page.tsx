@@ -61,7 +61,7 @@ const ROUND_TIME = 50; // 5.0 seconds
 const ULTIMATE_TIME = 100; // 10.0 seconds
 
 export default function MemoryGhostBossPage() {
-  const { gainRyo } = useGame();
+  const { addRyo } = useGame();
   const [gameState, setGameState] = useState<GameState>('intro');
   const [hp, setHp] = useState(3);
   const [time, setTime] = useState(ROUND_TIME);
@@ -150,7 +150,7 @@ export default function MemoryGhostBossPage() {
 
   const handleVictory = () => {
     setGameState('victory');
-    gainRyo(300); // Boss loot
+    addRyo(300); // Boss loot
   };
 
   const startGame = () => {
