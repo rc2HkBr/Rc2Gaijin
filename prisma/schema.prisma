@@ -10,6 +10,13 @@ datasource db {
   provider = "sqlite"
 }
 
+model User {
+  id          String           @id @default(uuid())
+  name        String?
+  savedWords  UserSavedWord[]
+  createdAt   DateTime         @default(now())
+}
+
 model Teacher {
   id          String     @id @default(uuid())
   name        String
@@ -39,4 +46,30 @@ model Booking {
   status     String   @default("PENDING")
   meetLink   String?
   createdAt  DateTime @default(now())
+}
+
+model DictionaryEntry {
+  id          String   @id @default(cuid())
+  kanji       String?  // Pode ser nulo se só tiver kana
+  reading     String   // Hiragana/Katakana
+  romaji      String?  // Romaji
+  meaningPt   String   // Significado em Português
+  meaningEn   String?  // Fallback em Inglês
+  jlptLevel   Int?     // N5 (5) ao N1 (1)
+  isCommon    Boolean  @default(false)
+  
+  savedByUsers UserSavedWord[]
+  
+  @@index([kanji])
+  @@index([reading])
+}
+
+model UserSavedWord {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  wordId     String
+  word       DictionaryEntry @relation(fields: [wordId], references: [id])
+  createdAt  DateTime @default(now())
+  nextReview DateTime?
 }
