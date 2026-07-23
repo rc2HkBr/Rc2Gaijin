@@ -1,13 +1,41 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "sqlite"
+}
+
+model Teacher {
+  id          String     @id @default(uuid())
+  name        String
+  specialty   String
+  price       Float      @default(60.0)
+  imageUrl    String?
+  schedules   Schedule[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Schedule {
+  id        String   @id @default(uuid())
+  teacherId String
+  teacher   Teacher  @relation(fields: [teacherId], references: [id])
+  date      DateTime
+  isBooked  Boolean  @default(false)
+  bookings  Booking[]
+}
+
+model Booking {
+  id         String   @id @default(uuid())
+  scheduleId String
+  schedule   Schedule @relation(fields: [scheduleId], references: [id])
+  studentId  String
+  paymentId  String?
+  status     String   @default("PENDING")
+  meetLink   String?
+  createdAt  DateTime @default(now())
 }
