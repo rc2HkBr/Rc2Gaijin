@@ -22,7 +22,7 @@ export default function Sidebar() {
 
   return (
     <>
-      <div className="hidden sm:flex flex-col w-64 border-r border-border bg-surface p-4 h-full shadow-sm z-10">
+      <div className="hidden sm:flex flex-col w-64 border-r border-border bg-surface p-4 h-full shadow-sm z-10 overflow-y-auto overflow-x-hidden" style={{ scrollbarWidth: 'thin', scrollbarColor: '#ff8c00 transparent' }}>
         <div className="text-3xl font-pixel text-primary mb-6 px-4 mt-4 tracking-tight flex flex-col gap-0 drop-shadow-[0_0_8px_rgba(255,140,0,0.8)]">
           <span>GAIJIN RC2</span>
           <span className="text-secondary text-lg">外人RC2</span>
