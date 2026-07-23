@@ -5,10 +5,9 @@ import { createClient } from '@libsql/client';
 const globalForPrisma = global as unknown as { prisma: PrismaClient };
 
 const createPrisma = () => {
-  const libsql = createClient({
-    url: 'file:prisma/dev.db',
+  const adapter = new PrismaLibSql({
+    url: 'file:dev.db',
   });
-  const adapter = new PrismaLibSql(libsql);
   return new PrismaClient({ adapter, log: ['query'] });
 };
 
