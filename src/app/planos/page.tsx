@@ -131,7 +131,7 @@ export default function PricingPage() {
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-5 h-5 text-amber-500 shrink-0" />
-                <span><strong className="text-amber-400">Interação com Nativos:</strong> Correção de áudios e textos por uma comunidade japonesa.</span>
+                <span><strong className="text-amber-400">Bancos de Palavras:</strong> Crie seus próprios flashcards e minere dados livremente.</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-5 h-5 text-amber-500 shrink-0" />
