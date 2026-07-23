@@ -366,5 +366,3 @@ export default function MemoryGhostBossPage() {
     </div>
   );
 }
-/ /   r e b u i l d   t r i g g e r  
- 
