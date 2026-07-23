@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { sfx } from '@/utils/sfx';
 
 export interface Avatar {
   id: string;
@@ -48,44 +49,100 @@ export const AVATARS: Avatar[] = [
 
 interface GameContextProps {
   ryo: number;
+  hp: number;
+  smokeBombs: number;
   addRyo: (amount: number) => void;
   spendRyo: (amount: number) => boolean;
   activeAvatar: Avatar;
   setActiveAvatarId: (id: string) => void;
   unlockedAvatars: string[];
   unlockAvatar: (id: string) => void;
+  healHp: () => boolean;
+  takeDamage: () => void;
+  buySmokeBomb: () => boolean;
+  useSmokeBomb: () => boolean;
 }
 
 const GameContext = createContext<GameContextProps | undefined>(undefined);
 
 export function GameProvider({ children }: { children: ReactNode }) {
   const [ryo, setRyo] = useState(1500); 
+  const [hp, setHp] = useState(3);
+  const [smokeBombs, setSmokeBombs] = useState(1);
   const [activeAvatarId, setActiveAvatarId] = useState('shinobi_sombras');
   const [unlockedAvatars, setUnlockedAvatars] = useState<string[]>(['shinobi_sombras']);
 
   useEffect(() => {
     const savedRyo = localStorage.getItem('gaijin_ryo');
+    const savedHp = localStorage.getItem('gaijin_hp');
+    const savedBombs = localStorage.getItem('gaijin_smoke_bombs');
     const savedAvatar = localStorage.getItem('gaijin_avatar');
     const savedUnlocked = localStorage.getItem('gaijin_unlocked_avatars');
 
     if (savedRyo) setRyo(Number(savedRyo));
+    if (savedHp) setHp(Number(savedHp));
+    if (savedBombs) setSmokeBombs(Number(savedBombs));
     if (savedAvatar) setActiveAvatarId(savedAvatar);
     if (savedUnlocked) setUnlockedAvatars(JSON.parse(savedUnlocked));
   }, []);
 
   useEffect(() => {
     localStorage.setItem('gaijin_ryo', ryo.toString());
+    localStorage.setItem('gaijin_hp', hp.toString());
+    localStorage.setItem('gaijin_smoke_bombs', smokeBombs.toString());
     localStorage.setItem('gaijin_avatar', activeAvatarId);
     localStorage.setItem('gaijin_unlocked_avatars', JSON.stringify(unlockedAvatars));
-  }, [ryo, activeAvatarId, unlockedAvatars]);
+  }, [ryo, hp, smokeBombs, activeAvatarId, unlockedAvatars]);
 
-  const addRyo = (amount: number) => setRyo((prev) => prev + amount);
+  const addRyo = (amount: number) => {
+    setRyo((prev) => prev + amount);
+    sfx.playSuccess();
+  };
   
   const spendRyo = (amount: number) => {
     if (ryo >= amount) {
       setRyo((prev) => prev - amount);
+      sfx.playClick();
       return true;
     }
+    sfx.playDamage();
+    return false;
+  };
+
+  const healHp = () => {
+    if (hp >= 3) {
+      sfx.playDamage();
+      return false; // HP already max
+    }
+    if (spendRyo(150)) {
+      setHp((prev) => Math.min(3, prev + 1));
+      sfx.playSuccess();
+      return true;
+    }
+    return false;
+  };
+
+  const takeDamage = () => {
+    setHp((prev) => Math.max(0, prev - 1));
+    sfx.playDamage();
+  };
+
+  const buySmokeBomb = () => {
+    if (spendRyo(300)) {
+      setSmokeBombs((prev) => prev + 1);
+      sfx.playSuccess();
+      return true;
+    }
+    return false;
+  };
+
+  const useSmokeBomb = () => {
+    if (smokeBombs > 0) {
+      setSmokeBombs((prev) => prev - 1);
+      sfx.playSuccess();
+      return true;
+    }
+    sfx.playDamage();
     return false;
   };
 
@@ -101,12 +158,18 @@ export function GameProvider({ children }: { children: ReactNode }) {
     <GameContext.Provider 
       value={{ 
         ryo, 
+        hp,
+        smokeBombs,
         addRyo, 
         spendRyo, 
         activeAvatar, 
         setActiveAvatarId, 
         unlockedAvatars, 
-        unlockAvatar 
+        unlockAvatar,
+        healHp,
+        takeDamage,
+        buySmokeBomb,
+        useSmokeBomb
       }}
     >
       {children}
