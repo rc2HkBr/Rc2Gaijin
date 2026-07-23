@@ -31,9 +31,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${quicksand.variable} ${vt323.variable} font-sans antialiased bg-black p-0 sm:p-6 overflow-hidden`}>
+      <body className={`${quicksand.variable} ${vt323.variable} font-sans antialiased bg-black p-0 sm:p-6 overflow-hidden h-screen w-screen flex`}>
         {/* Carcaça do Monitor (Fliperama) */}
-        <div className="w-full h-full sm:rounded-3xl border-[16px] border-[#1a1a1a] shadow-[0_0_50px_rgba(0,210,255,0.2)] bg-background relative overflow-hidden flex flex-col sm:flex-row">
+        <div className="flex-1 h-full sm:rounded-3xl border-[16px] border-[#1a1a1a] shadow-[0_0_50px_rgba(0,210,255,0.2)] bg-background relative overflow-hidden flex flex-col sm:flex-row">
           {/* Efeito da Tela de Tubo */}
           <div className="scanlines absolute inset-0 rounded-2xl"></div>
 
