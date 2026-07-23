@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Star, Grid, Sparkles, BookOpen, CheckCircle2, ShieldAlert, Skull, Map, Heart, Flame, Coins, MapPin, Mountain } from 'lucide-react';
+import { Star, Grid, Sparkles, BookOpen, CheckCircle2, ShieldAlert, Skull, Map, Heart, Flame, Coins, MapPin, Mountain, Crown } from 'lucide-react';
 import Link from 'next/link';
 import { HIRAGANA_GROUPS } from '@/data/hiraganaData';
 import HiraganaChartModal from '@/components/HiraganaChartModal';
@@ -39,6 +39,25 @@ export default function Home() {
       </div>
 
       <Heatmap />
+
+      {/* PLANOS / VIP BANNER */}
+      <Link href="/planos" className="w-full bg-[#1a2332] border-2 border-secondary rounded-3xl p-4 sm:p-6 shadow-[0_0_15px_rgba(0,210,255,0.2)] mb-6 relative overflow-hidden group hover:scale-[1.02] transition-transform block">
+        <div className="absolute inset-0 bg-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <div className="relative z-10 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-xl bg-secondary/20 border border-secondary flex items-center justify-center animate-pulse">
+              <Crown className="w-6 h-6 text-secondary" />
+            </div>
+            <div>
+              <h3 className="text-lg font-pixel text-secondary uppercase drop-shadow-sm">Torne-se VIP</h3>
+              <p className="text-gray-400 text-xs sm:text-sm">Desbloqueie o Nível Chunin hoje!</p>
+            </div>
+          </div>
+          <div className="bg-secondary text-[#000] font-pixel text-xs sm:text-sm px-4 py-2 rounded shadow-sm border-b-2 border-white group-active:border-b-0 group-active:translate-y-0.5 transition-all">
+            VER PLANOS
+          </div>
+        </div>
+      </Link>
 
       {/* Trilha do Mestre Banner */}
       <Link href="/trilha" className="w-full bg-gradient-to-r from-primary to-blue-600 rounded-3xl p-6 shadow-xl mb-12 relative overflow-hidden group hover:scale-[1.02] transition-transform block">
