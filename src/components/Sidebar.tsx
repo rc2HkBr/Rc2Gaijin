@@ -29,14 +29,18 @@ export default function Sidebar() {
 
         {/* RPG HUD PANEL */}
         <div className="bg-[#15191e] border-2 border-border/50 rounded-xl p-4 mb-6 mx-2 shadow-inner">
-          <div className="text-xs font-pixel text-secondary uppercase mb-4 flex items-center gap-2 tracking-wider">
+          <div className="text-xs font-pixel text-secondary uppercase mb-4 flex flex-col items-center gap-3 tracking-wider text-center">
             {activeAvatar.imageUrl ? (
-              <img src={activeAvatar.imageUrl} alt="" className="w-10 h-10 rounded border border-primary object-contain bg-black" />
+              <img src={activeAvatar.imageUrl} alt="" className="w-24 h-24 rounded border-2 border-primary object-contain bg-black shadow-[0_0_10px_rgba(255,140,0,0.5)] p-1" />
             ) : (
-              <span className="text-2xl">{activeAvatar.emoji}</span>
+              <span className="text-6xl drop-shadow-[0_0_10px_rgba(255,140,0,0.5)]">{activeAvatar.emoji}</span>
             )}
-            <span className="truncate flex-1 text-primary drop-shadow-[0_0_5px_rgba(255,140,0,0.5)]">USER: {activeAvatar.name}</span>
-            <span className="text-success border border-success/30 bg-success/10 px-2 py-0.5 rounded text-[10px]">LV. 1</span>
+            <div className="flex flex-col items-center gap-1">
+              <span className="text-success border border-success/30 bg-success/10 px-2 py-0.5 rounded text-[10px]">LV. 1</span>
+              <span className="text-primary text-sm drop-shadow-[0_0_5px_rgba(255,140,0,0.5)] break-words max-w-[180px]">
+                {activeAvatar.name}
+              </span>
+            </div>
           </div>
           
           <div className="flex flex-col gap-3">
