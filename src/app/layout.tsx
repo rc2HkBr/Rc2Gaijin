@@ -18,11 +18,10 @@ const vt323 = VT323({
   subsets: ["latin"],
 });
 
-
-
 export const metadata: Metadata = {
-  title: "Nihongo App",
-  description: "Learn Japanese the right way",
+  title: "GAIJIN RC2 - 外人RC2",
+  description: "Learn Japanese the Cyber-Ninja Way",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no",
 };
 
 export default function RootLayout({
@@ -32,24 +31,34 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${quicksand.variable} ${vt323.variable} font-sans antialiased bg-black p-0 sm:p-6 overflow-hidden h-screen w-screen flex`}>
+      <body className={`${quicksand.variable} ${vt323.variable} font-sans antialiased bg-black`}>
         
-        {/* Tela de Inicialização (Marca do Criador) */}
+        {/* Splash Screen */}
         <SplashScreen />
 
-        {/* Carcaça do Monitor (Fliperama) */}
-        <div className="flex-1 h-full sm:rounded-3xl border-[16px] border-[#1a1a1a] shadow-[0_0_50px_rgba(0,210,255,0.2)] bg-background relative overflow-hidden flex flex-col sm:flex-row">
-          {/* Efeito da Tela de Tubo */}
-          <div className="scanlines absolute inset-0 rounded-2xl"></div>
+        {/* DESKTOP: CRT Frame */}
+        <div className="hidden sm:flex h-screen w-screen p-6">
+          <div className="flex-1 rounded-3xl border-[16px] border-[#1a1a1a] shadow-[0_0_50px_rgba(0,210,255,0.2)] bg-background relative overflow-hidden flex flex-row">
+            <div className="scanlines"></div>
+            <GameProvider>
+              <Sidebar />
+              <main className="flex-1 overflow-y-auto relative z-10">
+                {children}
+              </main>
+            </GameProvider>
+          </div>
+        </div>
 
+        {/* MOBILE: Full screen, no CRT frame */}
+        <div className="sm:hidden flex flex-col h-[100dvh] bg-background overflow-hidden">
           <GameProvider>
-            <Sidebar />
-            <main className="flex-1 overflow-y-auto pb-20 sm:pb-0 relative z-10">
+            <main className="flex-1 overflow-y-auto overscroll-none pb-16">
               {children}
             </main>
             <BottomBar />
           </GameProvider>
         </div>
+
       </body>
     </html>
   );

@@ -84,7 +84,7 @@ export default function Home() {
                 <div
                   key={group.id}
                   className={`relative z-10 group w-full flex justify-center ${
-                    isOffsetLeft ? '-ml-16 sm:-ml-24' : 'ml-16 sm:ml-24'
+                    isOffsetLeft ? '-ml-6 sm:-ml-24' : 'ml-6 sm:ml-24'
                   }`}
                 >
                   <Link
@@ -166,7 +166,7 @@ export default function Home() {
             <p className="text-sm text-gray-500 mt-1 font-medium">Motor de Kanjis: Kaishi 1.5k</p>
           </div>
 
-          <div className="relative z-10 w-full flex justify-center ml-16 sm:ml-24">
+          <div className="relative z-10 w-full flex justify-center ml-6 sm:ml-24">
             <Link
               href={`/kaishi`}
               className="flex flex-col items-center transition-transform hover:scale-105 active:scale-95 duration-200"
